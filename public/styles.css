@@ -1,0 +1,29 @@
+.navbar {
+  box-shadow: 1px 0px 1px #000000;
+}
+
+.home,
+.contact,
+.download {
+  color: #00357b !important;
+  padding: 5px;
+  margin-right: 5px;
+}
+.home:hover {
+  color: #ffffff !important;
+  cursor: pointer;
+  background-color: #00357b !important;
+  transition: 0.5s;
+}
+.contact:hover {
+  color: #ffffff !important;
+  cursor: pointer;
+  background-color: #00357b !important;
+  transition: 0.5s;
+}
+.download:hover {
+  color: #ffffff !important;
+  cursor: pointer;
+  background-color: #00357b !important;
+  transition: 0.5s;
+}
