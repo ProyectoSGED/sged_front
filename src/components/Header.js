@@ -3,24 +3,24 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <nav className="navbar fixed-top navbar-light bg-ligth border-bottom-1">
+    <nav className="navigation navbar navbar-light bg-ligth">
       <a className="navbar-brand" href="#">
         <img
-          src={process.env.PUBLIC_URL + "/logo_obs.jpg"}
+          src={`${process.env.PUBLIC_URL}/images/logo_obs.jpg`}
           width="300"
           height="76"
           alt="logo_obs"
           loading="lazy"
         />
         <img
-          src={process.env.PUBLIC_URL + "/logo_ide.png"}
+          src={`${process.env.PUBLIC_URL}/images/logo_ide.png`}
           width="76"
           height="76"
           alt="logo_ide"
           loading="lazy"
         />
       </a>
-      <ul className="nav justify-content-end">
+      <ul className="navigationElementsContainer nav justify-content-end">
         <li className="nav-item">
           <Link to="#" className="home nav-link">
             Inicio

@@ -1,7 +1,14 @@
-.navbar {
-  box-shadow: 1px 0px 1px #000000;
+.navigation {
+  position: fixed !important;
+  top: 0;
+  border-bottom: #808080 solid 1px;
+  background: #ffffff;
+  width: 100%;
+  z-index: 1;
 }
-
+.navigationElementsContainer {
+  margin-right: 10px;
+}
 .home,
 .contact,
 .download {
@@ -26,4 +33,39 @@
   cursor: pointer;
   background-color: #00357b !important;
   transition: 0.5s;
+}
+.homeContainer {
+  margin-top: 10%;
+  position: relative;
+}
+.descriptionContainer,
+.mapContainer {
+  width: 652px !important;
+  height: 481px !important;
+  position: relative;
+}
+.descriptionTitle,
+.mapTitle {
+  font-size: 22px;
+  padding: 15px 0px 15px 0px;
+}
+.descriptionText {
+  text-align: justify;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #808080;
+  font-size: 18px;
+}
+.mapImage {
+  height: 100%;
+  width: 100%;
+}
+.footerContainer {
+  margin-top: 10%;
+}
+.footer {
+  position: relative;
+  color: #ffffff;
+  background: #043480;
+  width: 100%;
+  padding: 20px;
 }
