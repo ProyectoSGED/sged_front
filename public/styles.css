@@ -9,16 +9,32 @@
   background: #ffffff;
   width: 100%;
   z-index: 1;
+  right: 0;
+  left: 0;
+  padding: 0 1rem !important;
 }
 .navigationElementsContainer {
   margin-right: 10px;
+  height: 100px;
+  justify-content: flex-start !important;
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+}
+.nav-link {
+  display: flex !important ;
+  height: 100%;
+  align-items: end;
+  padding: 0 !important;
 }
 .home,
 .contact,
 .download {
   color: #00357b !important;
   padding: 5px;
-  margin-right: 5px;
+  margin-right: 1px;
+  padding: 0.5rem 1rem !important;
+  font-weight: bold;
 }
 .home:hover {
   color: #ffffff !important;
@@ -38,8 +54,14 @@
   background-color: #00357b !important;
   transition: 0.5s;
 }
+.selected-item {
+  color: #ffffff !important;
+  cursor: pointer;
+  background-color: #00357b !important;
+}
 .homeContainer,
-.download-container {
+.download-container,
+.contact-container {
   margin-top: 10%;
   position: relative;
 }

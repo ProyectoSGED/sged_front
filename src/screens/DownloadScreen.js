@@ -16,7 +16,7 @@ const DonwloadScreen = () => {
               />
             </div>
             <button className="btn">
-              <i class="fas fa-search"></i>
+              <i className="fas fa-search"></i>
             </button>
           </div>
         </form>
