@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <nav className="navigation navbar navbar-light bg-ligth">
-      <a className="navbar-brand" href="#">
+      <Link className="navbar-brand" to="/">
         <img
           src={`${process.env.PUBLIC_URL}/images/logo_obs.jpg`}
           width="300"
@@ -19,15 +19,15 @@ const Header = () => {
           alt="logo_ide"
           loading="lazy"
         />
-      </a>
+      </Link>
       <ul className="navigationElementsContainer nav justify-content-end">
         <li className="nav-item">
-          <Link to="#" className="home nav-link">
+          <Link to="/" className="home nav-link">
             Inicio
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="#" className="download nav-link">
+          <Link to="/shapes" className="download nav-link">
             Descarga de capas
           </Link>
         </li>
@@ -35,22 +35,6 @@ const Header = () => {
           <Link to="#" className="contact nav-link">
             Formulario de contacto
           </Link>
-        </li>
-        <li className="nav-item">
-          <form className="form-inline">
-            <input
-              className="form-control mr-sm-2"
-              type="search"
-              placeholder="Buscar capas"
-              aria-label="Search"
-            />
-            <button
-              className="btn btn-outline-primary my-2 my-sm-0"
-              type="submit"
-            >
-              Buscar
-            </button>
-          </form>
         </li>
       </ul>
     </nav>

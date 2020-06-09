@@ -1,3 +1,7 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+}
 .navigation {
   position: fixed !important;
   top: 0;
@@ -34,7 +38,8 @@
   background-color: #00357b !important;
   transition: 0.5s;
 }
-.homeContainer {
+.homeContainer,
+.download-container {
   margin-top: 10%;
   position: relative;
 }
@@ -60,7 +65,9 @@
   width: 100%;
 }
 .footerContainer {
-  margin-top: 10%;
+  position: relative;
+  margin-top: 15%;
+  width: 100%;
 }
 .footer {
   position: relative;
@@ -68,4 +75,27 @@
   background: #043480;
   width: 100%;
   padding: 20px;
+}
+.search-form-container {
+  align-content: stretch;
+  justify-content: center;
+  flex-direction: row;
+  display: flex;
+  margin-left: 5% !important;
+}
+.search-form {
+  width: 90%;
+}
+.shapes-item-container {
+  margin-top: 15px;
+  padding: 20px 0;
+}
+.item-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.shape-name-label {
+  padding: 20px 0;
+  text-transform: uppercase;
 }
