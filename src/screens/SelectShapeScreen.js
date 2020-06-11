@@ -1,8 +1,7 @@
 import React from "react";
 import ShapeItem from "../components/ShapeItem";
-import { Link } from "react-router-dom";
 
-const DonwloadScreen = () => {
+const SelectShapeScreen = () => {
   return (
     <div className="container-md download-container">
       <div className="container-fluid search-form-container">
@@ -26,22 +25,26 @@ const DonwloadScreen = () => {
           <ShapeItem
             altText={"amenazas"}
             imageName={"amenazas.png"}
-            link={"#"}
+            link={"/shapes/list"}
+            shapeName={"amenazas"}
           />
           <ShapeItem
             altText={"infraestructura critica"}
             imageName={"infraestructura_critica.png"}
-            link={"#"}
+            link={"/shapes/list"}
+            shapeName={"infraestructura_critica"}
           />
           <ShapeItem
             altText={"datos poblacion"}
             imageName={"datos_poblacion.png"}
-            link={"#"}
+            link={"/shapes/list"}
+            shapeName={"datos_poblacion"}
           />
           <ShapeItem
             altText={"variables fisicas ambientales"}
             imageName={"variables_fisicas_ambientales.png"}
-            link={"#"}
+            link={"/shapes/list"}
+            shapeName={"variables_fisicas_ambientales"}
           />
         </div>
       </div>
@@ -49,4 +52,4 @@ const DonwloadScreen = () => {
   );
 };
 
-export default DonwloadScreen;
+export default SelectShapeScreen;

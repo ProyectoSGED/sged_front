@@ -61,7 +61,8 @@
 }
 .homeContainer,
 .download-container,
-.contact-container {
+.contact-container,
+.shape-list-container {
   margin-top: 10%;
   position: relative;
 }
@@ -119,5 +120,24 @@
 }
 .shape-name-label {
   padding: 20px 0;
+  text-transform: uppercase;
+}
+.shape-image-container {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.shape-text-container {
+  padding: 10px;
+}
+.shape-text {
+  text-align: justify;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.2em;
+}
+.shapes-container {
+  display: flex;
+  justify-content: center;
+}
+.shape-list-title {
   text-transform: uppercase;
 }

@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const ShapeItem = ({ imageName, altText, link }) => {
+const ShapeItem = ({ imageName, altText, link, shapeName }) => {
   return (
     <div className="item-container col-md">
-      <Link className="" to={link}>
+      <Link className="" to={{ pathname: link, state: { shapeName } }}>
         <img
           src={`${process.env.PUBLIC_URL}/images/${imageName}`}
           alt={altText}
