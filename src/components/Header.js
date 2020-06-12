@@ -22,20 +22,7 @@ const Header = () => {
           handleSelectedItem("/");
         }}
       >
-        <img
-          src={`${process.env.PUBLIC_URL}/images/logo_obs.jpg`}
-          width="300"
-          height="76"
-          alt="logo_obs"
-          loading="lazy"
-        />
-        <img
-          src={`${process.env.PUBLIC_URL}/images/logo_ide.png`}
-          width="76"
-          height="76"
-          alt="logo_ide"
-          loading="lazy"
-        />
+        <h4 className="header-title">Sistema de gestión de desastres</h4>
       </Link>
       <ul className="navigationElementsContainer nav justify-content-end">
         <li className="nav-link nav-item">

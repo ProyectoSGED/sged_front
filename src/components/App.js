@@ -6,6 +6,7 @@ import HomeScreen from "../screens/HomeScreen";
 import SelectShapeScreen from "../screens/SelectShapeScreen";
 import ShapeScreen from "../screens/ShapeScreen";
 import ContactScreen from "../screens/ContactScreen";
+import SigninScreen from "../screens/SigninScreen";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
             <Route path="/shapes" exact component={SelectShapeScreen} />
             <Route path="/shapes/list" exact component={ShapeScreen} />
             <Route path="/contact" exact component={ContactScreen} />
+            <Route path="/signin" exact component={SigninScreen} />
           </div>
         </BrowserRouter>
       </div>

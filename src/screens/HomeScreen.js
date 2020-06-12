@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const HomeScreen = () => {
   return (
@@ -33,12 +34,14 @@ const HomeScreen = () => {
             <p className="mapTitle text-center">
               SISTEMA DE INFORMACIÓN TERRITORIAL
             </p>
-            <img
-              className="mapImage"
-              src={`${process.env.PUBLIC_URL}/images/servidor_mapas.jpg`}
-              alt="logo_obs"
-              loading="lazy"
-            />
+            <div className="buttons-container">
+              <Link to="#" className="access-button">
+                Ingresar como visita
+              </Link>
+              <Link to="/signin" className="access-button">
+                Ingresar con cuenta
+              </Link>
+            </div>
           </div>
         </div>
       </div>

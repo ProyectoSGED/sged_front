@@ -10,6 +10,7 @@ const ContactScreen = () => {
 
   return (
     <div className="container-md contact-container">
+      <h4 className="contact-title">Ingrese información de contacto</h4>
       <form>
         <div className="form-group">
           <label htmlFor="name">Nombre</label>

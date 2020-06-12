@@ -6,12 +6,15 @@
   position: fixed !important;
   top: 0;
   border-bottom: #808080 solid 1px;
-  background: #ffffff;
+  background: #00357b;
   width: 100%;
   z-index: 1;
   right: 0;
   left: 0;
   padding: 0 1rem !important;
+}
+.header-title {
+  color: #ffffff;
 }
 .navigationElementsContainer {
   margin-right: 10px;
@@ -30,39 +33,40 @@
 .home,
 .contact,
 .download {
-  color: #00357b !important;
+  color: #ffffff !important;
   padding: 5px;
   margin-right: 1px;
   padding: 0.5rem 1rem !important;
   font-weight: bold;
 }
 .home:hover {
-  color: #ffffff !important;
+  color: #00357b !important;
   cursor: pointer;
-  background-color: #00357b !important;
+  background-color: #ffffff !important;
   transition: 0.5s;
 }
 .contact:hover {
-  color: #ffffff !important;
+  color: #00357b !important;
   cursor: pointer;
-  background-color: #00357b !important;
+  background-color: #ffffff !important;
   transition: 0.5s;
 }
 .download:hover {
-  color: #ffffff !important;
+  color: #00357b !important;
   cursor: pointer;
-  background-color: #00357b !important;
+  background-color: #ffffff !important;
   transition: 0.5s;
 }
 .selected-item {
-  color: #ffffff !important;
+  color: #00357b !important;
   cursor: pointer;
-  background-color: #00357b !important;
+  background-color: #ffffff !important;
 }
 .homeContainer,
 .download-container,
 .contact-container,
-.shape-list-container {
+.shape-list-container,
+.signin-container {
   margin-top: 10%;
   position: relative;
 }
@@ -72,6 +76,43 @@
   height: 481px !important;
   position: relative;
 }
+.buttons-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+}
+.buttons-container::after {
+  background-image: url("/images/servidor_mapas.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-attachment: local;
+  content: "";
+  opacity: 0.8;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+.access-button {
+  border: 2px solid #00357b;
+  padding: 15px;
+  color: #ffffff;
+  background-color: #00357b;
+  font-weight: bold;
+  border-radius: 5%;
+}
+.access-button:hover {
+  color: #00357b !important;
+  cursor: pointer;
+  background-color: #ffffff !important;
+  text-decoration: none;
+  transition: 0.5s;
+}
 .descriptionTitle,
 .mapTitle {
   font-size: 22px;
@@ -80,7 +121,7 @@
 .descriptionText {
   text-align: justify;
   font-family: Arial, Helvetica, sans-serif;
-  color: #808080;
+  color: #5a5a5a;
   font-size: 18px;
 }
 .mapImage {
@@ -93,12 +134,20 @@
   width: 100%;
 }
 .footer {
+  border-top: 1px solid #808080;
   position: relative;
-  color: #ffffff;
-  background: #043480;
+  color: #00357b;
+  background: #ffffff;
   width: 100%;
   padding: 20px;
 }
+.footer-items-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .search-form-container {
   align-content: stretch;
   justify-content: center;
@@ -140,4 +189,15 @@
 }
 .shape-list-title {
   text-transform: uppercase;
+}
+.contact-title {
+  padding: 10px;
+  text-align: center;
+  margin: 10px 0;
+}
+.signin-form {
+  margin: 15%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
 }
