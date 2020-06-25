@@ -40,7 +40,7 @@ const ShapeScreen = ({ location: { state } }) => {
 
   useEffect(() => {
     action({ type: state.shapeName });
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="container shape-list-container">

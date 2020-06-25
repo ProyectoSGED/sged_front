@@ -70,6 +70,9 @@
   margin-top: 10%;
   position: relative;
 }
+.carousel-container {
+  margin-bottom: 10px;
+}
 .descriptionContainer,
 .mapContainer {
   width: 652px !important;

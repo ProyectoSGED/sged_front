@@ -11,7 +11,7 @@ const Header = () => {
 
   useEffect(() => {
     handleSelectedItem(currentPath.pathname);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <nav className="navigation navbar navbar-light bg-ligth">

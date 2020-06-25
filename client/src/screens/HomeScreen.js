@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Carousel from "../components/Carousel";
 
 const HomeScreen = () => {
   return (
     <div className="homeContainer container-fluid">
+      <Carousel />
       <div className="row">
         <div className="col">
           <div className="descriptionContainer container">
