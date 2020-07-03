@@ -29,7 +29,8 @@
 }
 .home,
 .contact,
-.download {
+.download,
+.signin {
   color: #0088cc !important;
   padding: 5px;
   margin-right: 1px;
@@ -57,6 +58,12 @@
   background-color: #0088cc !important;
   transition: 0.5s;
 }
+.signin:hover {
+  color: #ffffff !important;
+  cursor: pointer;
+  background-color: #0088cc !important;
+  transition: 0.5s;
+}
 .selected-item {
   color: #ffffff !important;
   cursor: pointer;
@@ -66,12 +73,16 @@
 .download-container,
 .contact-container,
 .shape-list-container,
-.signin-container {
+.signin-container,
+.home-admin-container,
+.users-list-container {
   margin-top: 10%;
   position: relative;
 }
 .carousel-container {
   margin-bottom: 10px;
+  z-index: 0;
+  position: relative;
 }
 .descriptionContainer,
 .mapContainer {
@@ -211,4 +222,39 @@
 .signin-btn {
   background-color: #0088cc !important;
   font-family: "Open Sans", sans-serif !important;
+}
+.admin-buttons {
+  background-color: #0088cc !important;
+  border-color: #0088cc !important;
+}
+@media (min-width: 992px) {
+  .dropdown-menu .dropdown-toggle:after {
+    border-top: 0.3em solid transparent;
+    border-right: 0;
+    border-bottom: 0.3em solid transparent;
+    border-left: 0.3em solid;
+  }
+  .dropdown-menu .dropdown-menu {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .dropdown-menu li {
+    position: relative;
+  }
+  .nav-item .submenu {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: -7px;
+  }
+  .nav-item .submenu-left {
+    right: 100%;
+    left: auto;
+  }
+  .dropdown-menu > li:hover {
+    background-color: #f1f1f1;
+  }
+  .dropdown-menu > li:hover > .submenu {
+    display: block;
+  }
 }

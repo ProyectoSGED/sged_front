@@ -9,6 +9,10 @@ const Header = () => {
     setSelectedItem(routeName);
   }
 
+  function signout() {
+    localStorage.removeItem("user");
+  }
+
   useEffect(() => {
     handleSelectedItem(currentPath.pathname);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -77,6 +81,80 @@ const Header = () => {
             Formulario de contacto
           </Link>
         </li>
+        {!localStorage.getItem("user") ? (
+          <li className="nav-link nav-item">
+            <Link
+              to="/signin"
+              className={`signin nav-link ${
+                selectedItem === "/signin" ? "selected-item" : null
+              }`}
+              onClick={() => {
+                handleSelectedItem("/signin");
+              }}
+            >
+              Iniciar sesión
+            </Link>
+          </li>
+        ) : (
+          <li className="nav-item nav-link dropdown">
+            <Link
+              className="nav-link signin"
+              to="/signin"
+              data-toggle="dropdown"
+              aria-expanded="false"
+              aria-haspopup="true"
+            >
+              Bienvenido: {localStorage.getItem("user")}
+            </Link>
+            <ul className="dropdown-menu dropdown-menu-right">
+              <li>
+                <Link className="dropdown-item" to="#">
+                  Administrar usuarios
+                </Link>
+                <ul className="submenu submenu-left dropdown-menu">
+                  <li>
+                    <Link className="dropdown-item" to="#">
+                      Listado de usuarios
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="#">
+                      Crear nuevo usuario
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <Link className="dropdown-item" to="#">
+                  Administrar shapes
+                </Link>
+                <ul className="submenu submenu-left dropdown-menu">
+                  <li>
+                    <Link className="dropdown-item" to="#">
+                      Listado de shapes
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="#">
+                      Cargar nuevo shape
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a
+                  href="/"
+                  className="dropdown-item"
+                  onClick={() => {
+                    signout();
+                  }}
+                >
+                  Cerrar sesión
+                </a>
+              </li>
+            </ul>
+          </li>
+        )}
       </ul>
     </nav>
   );

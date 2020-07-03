@@ -63,5 +63,24 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script>
+      $(document).on("click", ".dropdown-menu", function (e) {
+        e.stopPropagation();
+      });
+
+      if ($(window).width() < 992) {
+        $(".dropdown-menu a").click(function (e) {
+          e.preventDefault();
+
+          if ($(this).next(".submenu").length) {
+            $(this).next(".submenu").toggle();
+          }
+
+          $(".dropdown").on("hide.bs.dropdown", function () {
+            $(this).find(".submenu").hide();
+          });
+        });
+      }
+    </script>
   </body>
 </html>
