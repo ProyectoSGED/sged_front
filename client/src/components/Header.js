@@ -113,7 +113,7 @@ const Header = () => {
                 </Link>
                 <ul className="submenu submenu-left dropdown-menu">
                   <li>
-                    <Link className="dropdown-item" to="#">
+                    <Link className="dropdown-item" to="/admin/users/list">
                       Listado de usuarios
                     </Link>
                   </li>

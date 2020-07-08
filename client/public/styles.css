@@ -75,7 +75,8 @@
 .shape-list-container,
 .signin-container,
 .home-admin-container,
-.users-list-container {
+.users-list-container,
+.user-list-container {
   margin-top: 10%;
   position: relative;
 }
@@ -257,4 +258,18 @@
   .dropdown-menu > li:hover > .submenu {
     display: block;
   }
+}
+.actions-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.action-icon {
+  padding: 10px;
+  font-size: 30px;
+  cursor: pointer;
+}
+.status-icon {
+  padding: 8px;
+  font-size: 30px;
 }
