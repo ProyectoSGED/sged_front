@@ -1,9 +1,17 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { Context as UsersAdminContext } from "../context/UsersAdminContext";
+import AlertDialog from "./AlertDialog";
 
 const UsersResult = () => {
-  const { state, getUsersList } = useContext(UsersAdminContext);
+  const { state, getUsersList, deactivateUser } = useContext(UsersAdminContext);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [userId, setUserId] = useState(null);
+
+  function deactivateUserById(userId) {
+    setUserId(userId);
+    setOpenDialog(true);
+  }
 
   const columns = [
     { name: "Nombre usuario", selector: "nombre_usuario" },
@@ -29,7 +37,7 @@ const UsersResult = () => {
       name: "Acciones",
       cell: (row) => (
         <div className="actions-container">
-          <div>
+          <div onClick={() => deactivateUserById(row.id_usuario)}>
             <i
               className="action-icon fas fa-trash-alt"
               style={{ color: "red" }}
@@ -50,14 +58,33 @@ const UsersResult = () => {
     getUsersList();
   }, []);
 
+  function handleDeactivateUser() {
+    deactivateUser(userId);
+
+    window.location.reload();
+  }
+  console.log(state);
   return state.userList ? (
-    <DataTable
-      columns={columns}
-      data={state.userList}
-      pagination={true}
-      paginationPerPage={10}
-      striped
-    />
+    <div>
+      {openDialog ? (
+        <AlertDialog
+          openDialog={setOpenDialog}
+          message={
+            "El usuario sera desactivado del sistema y no podra acceder a este"
+          }
+          title={"¿Desea desactivar al usuario seleccionado?"}
+          userId={userId}
+          onAccept={handleDeactivateUser}
+        />
+      ) : null}
+      <DataTable
+        columns={columns}
+        data={state.userList}
+        pagination={true}
+        paginationPerPage={10}
+        striped
+      />
+    </div>
   ) : null;
 };
 
