@@ -3,7 +3,7 @@ import ShapeItem from "../components/ShapeItem";
 
 const SelectShapeScreen = () => {
   return (
-    <div className="container-md download-container">
+    <div className="container-md screen-container">
       <div className="container-fluid search-form-container">
         <form className="search-form">
           <div className="form-group row">

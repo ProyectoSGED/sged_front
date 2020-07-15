@@ -69,14 +69,7 @@
   cursor: pointer;
   background-color: #0088cc !important;
 }
-.homeContainer,
-.download-container,
-.contact-container,
-.shape-list-container,
-.signin-container,
-.home-admin-container,
-.users-list-container,
-.user-list-container {
+.screen-container {
   margin-top: 10%;
   position: relative;
 }
@@ -204,6 +197,10 @@
 .shapes-container {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+}
+.shape-list-container {
+  margin-top: 20px;
 }
 .shape-list-title {
   text-transform: uppercase;

@@ -6,7 +6,7 @@ function signin() {
 
 const SigninScreen = () => {
   return (
-    <div className="container-md signin-container">
+    <div className="container-md screen-container">
       <form
         className="signin-form"
         onSubmit={() => {

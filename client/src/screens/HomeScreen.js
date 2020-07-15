@@ -4,7 +4,7 @@ import Carousel from "../components/Carousel";
 
 const HomeScreen = () => {
   return (
-    <div className="homeContainer container-fluid">
+    <div className="screen-container container-fluid">
       <Carousel />
       <div className="row">
         <div className="col">

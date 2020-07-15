@@ -8,6 +8,7 @@ import ShapeScreen from "../screens/ShapeScreen";
 import ContactScreen from "../screens/ContactScreen";
 import SigninScreen from "../screens/SigninScreen";
 import UsersListsScreen from "../screens/UsersListsScreen";
+import UserCreateScreen from "../screens/UserCreateScreen";
 
 const App = () => {
   return (
@@ -31,6 +32,11 @@ const App = () => {
             }
           />
           <Route path="/admin/users/list" exact component={UsersListsScreen} />
+          <Route
+            path="/admin/users/create"
+            exact
+            component={UserCreateScreen}
+          />
         </div>
       </div>
       <div className="footerContainer">
