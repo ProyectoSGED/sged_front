@@ -3,16 +3,34 @@ import SgedAPi from "../api/SgedAPI";
 
 const userAdminReducer = (state, action) => {
   switch (action.type) {
+    case "get_user":
+      return { ...state, user: action.payload, errorMessage: "" };
     case "get_users_list":
       return { userList: action.payload, errorMessage: "" };
     case "deactivate_user":
       return { ...state, message: action.payload };
+    case "update_user":
+      return {
+        ...state,
+        message: action.payload,
+        errorMessage: "",
+        hideLoading: true,
+      };
     case "new_user":
-      return { ...state, message: action.payload };
+      return {
+        ...state,
+        hideLoading: true,
+        message: action.payload,
+        errorMessage: "",
+      };
     case "profile_list":
-      return { profiles: action.payload, errorMessage: "" };
+      return { ...state, profiles: action.payload };
     case "add_error":
-      return { ...state, errorMessage: action.payload };
+      return {
+        ...state,
+        hideLoading: true,
+        errorMessage: action.payload,
+      };
     default:
       return state;
   }
@@ -50,7 +68,7 @@ const createNewUser = (dispatch) => async ({
       ? dispatch({ type: "new_user", payload: newUser.data.message })
       : dispatch({
           type: "add_error",
-          payload: "Ocurrio un error creando nuevo usuario",
+          payload: newUser.data.error,
         });
   } catch (err) {
     dispatch({ type: "add_error", payload: err.message });
@@ -64,6 +82,45 @@ const getUsersList = (dispatch) => async () => {
     usersList.data.status
       ? dispatch({ type: "get_users_list", payload: usersList.data.users })
       : dispatch({ type: "add_error", payload: usersList.data.error });
+  } catch (err) {
+    dispatch({ type: "add_error", payload: err.message });
+  }
+};
+
+const getUserById = (dispatch) => async (userId) => {
+  try {
+    const user = await SgedAPi.get(`/users/get?id_usuario=${userId}`);
+
+    user.data.status
+      ? dispatch({ type: "get_user", payload: user.data.user })
+      : dispatch({ type: "add_error", payload: user.data.error });
+  } catch (err) {
+    dispatch({ type: "add_error", payload: err.message });
+  }
+};
+
+const editUser = (dispatch) => async ({
+  userId,
+  userName,
+  firstName,
+  lastName,
+  userActive,
+  profileId,
+}) => {
+  try {
+    const response = await SgedAPi.put(
+      `/users/update?
+        id_usuario=${userId}
+        &nombre_usuario=${userName}
+        &primer_nombre=${firstName}
+        &primer_apellido=${lastName}
+        &usuario_activo=${userActive}
+        &id_perfil=${profileId}`
+    );
+
+    response.data.status
+      ? dispatch({ type: "update_user", payload: response.data.message })
+      : dispatch({ type: "add_error", payload: response.data.error });
   } catch (err) {
     dispatch({ type: "add_error", payload: err.message });
   }
@@ -85,6 +142,20 @@ const deactivateUser = (dispatch) => async (userId) => {
 
 export const { Provider, Context } = CreatedataContext(
   userAdminReducer,
-  { getUsersList, deactivateUser, getProfileList, createNewUser },
-  { userList: null, errorMessage: "", message: "", profiles: null }
+  {
+    getUsersList,
+    deactivateUser,
+    getProfileList,
+    createNewUser,
+    getUserById,
+    editUser,
+  },
+  {
+    user: null,
+    userList: null,
+    errorMessage: "",
+    message: "",
+    hideLoading: false,
+    profiles: null,
+  }
 );

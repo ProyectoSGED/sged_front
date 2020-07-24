@@ -1,42 +1,52 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context as UsersAdminContext } from "../context/UsersAdminContext";
 
-const UserForm = ({
-  isEditForm,
-  buttonName,
-  userName,
-  firstName,
-  lastName,
-}) => {
-  const { state, getProfileList, createNewUser } = useContext(
-    UsersAdminContext
-  );
+const UserForm = ({ isEditForm, buttonName, userId }) => {
+  const {
+    state,
+    getProfileList,
+    createNewUser,
+    getUserById,
+    editUser,
+  } = useContext(UsersAdminContext);
 
-  const [params, setParams] = useState({});
   const [showLoading, setShowLoading] = useState(false);
-  const [showMessage, setShowMessage] = useState(false);
 
-  const onSubmit = (event, params) => {
+  const onSubmit = (event) => {
+    event.preventDefault();
+
+    const params = {
+      userId: userId ? userId : null,
+      userName: event.target.nombre_usuario.value,
+      firstName: event.target.primer_nombre.value,
+      lastName: event.target.primer_apellido.value,
+      profileId: event.target.id_perfil.value,
+      password: event.target.password ? event.target.password.value : null,
+      userActive: event.target.checkUserActive
+        ? event.target.checkUserActive.checked
+        : null,
+    };
+
     setShowLoading(!showLoading);
 
-    event.preventDefault();
     if (!isEditForm) {
+      event.target.reset();
       createNewUser(params);
-    }
-
-    if (state.message || state.errorMessage) {
-      setShowLoading(!showLoading);
-      setShowMessage(!showMessage);
+    } else {
+      editUser(params);
     }
   };
 
   useEffect(() => {
+    if (isEditForm) {
+      getUserById(userId);
+    }
     getProfileList();
   }, []);
 
   return (
     <div className="container-md">
-      {showMessage ? (
+      {state.message || state.errorMessage ? (
         <div
           className={`alert ${
             state.message
@@ -57,9 +67,6 @@ const UserForm = ({
             className="close"
             data-dismiss="alert"
             aria-label="Close"
-            onClick={() => {
-              setShowMessage(false);
-            }}
           >
             <span aria-hidden="true">&times;</span>
           </button>
@@ -67,7 +74,7 @@ const UserForm = ({
       ) : null}
       <form
         onSubmit={(e) => {
-          onSubmit(e, params);
+          onSubmit(e);
         }}
       >
         <div className="form-group">
@@ -78,8 +85,9 @@ const UserForm = ({
             id="nombre_usuario"
             required
             placeholder={"Nombre de usuario"}
-            defaultValue={isEditForm ? userName : ""}
-            onChange={(e) => setParams({ ...params, userName: e.target.value })}
+            defaultValue={
+              isEditForm && state.user ? state.user[0].nombre_usuario : ""
+            }
           />
         </div>
         <div className="form-group">
@@ -89,23 +97,23 @@ const UserForm = ({
             className="form-control"
             id="primer_nombre"
             required
-            defaultValue={isEditForm ? firstName : ""}
-            placeholder={"Primer nombre"}
-            onChange={(e) =>
-              setParams({ ...params, firstName: e.target.value })
+            defaultValue={
+              isEditForm && state.user ? state.user[0].primer_nombre : ""
             }
+            placeholder={"Primer nombre"}
           />
         </div>
         <div className="form-group">
           <label htmlFor="primer_apellido">Primer apellido</label>
           <input
-            defaultValue={isEditForm ? lastName : ""}
+            defaultValue={
+              isEditForm && state.user ? state.user[0].primer_apellido : ""
+            }
             type="text"
             className="form-control"
             id="primer_apellido"
             required
             placeholder={"Primer apellido"}
-            onChange={(e) => setParams({ ...params, lastName: e.target.value })}
           />
         </div>
         <div className="form-group">
@@ -114,11 +122,9 @@ const UserForm = ({
             className="form-control"
             id="id_perfil"
             required
-            onChange={(e) =>
-              setParams({ ...params, profileId: e.target.value })
-            }
+            value={isEditForm && state.user ? state.user[0].id_perfil : ""}
           >
-            <option>Seleccione un perfil</option>
+            <option value="">Seleccione un perfil</option>
             {state.profiles
               ? state.profiles.map((profile, index) => (
                   <option value={profile.id_perfil} key={index}>
@@ -128,7 +134,6 @@ const UserForm = ({
               : null}
           </select>
         </div>
-
         {!isEditForm ? (
           <div className="form-group">
             <label htmlFor="password">Contraseña</label>
@@ -139,14 +144,23 @@ const UserForm = ({
               required
               minLength="8"
               placeholder={"Contraseña"}
-              onChange={(e) =>
-                setParams({ ...params, password: e.target.value })
-              }
             />
           </div>
-        ) : null}
+        ) : (
+          <div className="form-group form-check">
+            <input
+              defaultChecked={state.user ? state.user[0].usuario_activo : null}
+              type="checkbox"
+              className="form-check-input"
+              id="checkUserActive"
+            />
+            <label className="form-check-label" htmlFor="checkUserActive">
+              Activar/Desactivar usuario
+            </label>
+          </div>
+        )}
 
-        {showLoading ? (
+        {showLoading && !state.hideLoading ? (
           <div
             className="float-right spinner-border text-primary"
             role="status"

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import DataTable from "react-data-table-component";
 import { Context as UsersAdminContext } from "../context/UsersAdminContext";
 import AlertDialog from "./AlertDialog";
@@ -44,10 +45,14 @@ const UsersResult = () => {
             ></i>
           </div>
           <div>
-            <i
-              className="action-icon fas fa-edit"
-              style={{ color: "blue" }}
-            ></i>
+            <Link
+              to={{ pathname: "/admin/users/update", state: row.id_usuario }}
+            >
+              <i
+                className="action-icon fas fa-edit"
+                style={{ color: "blue" }}
+              ></i>
+            </Link>
           </div>
         </div>
       ),
@@ -83,6 +88,9 @@ const UsersResult = () => {
         pagination={true}
         paginationPerPage={10}
         striped
+        paginationComponentOptions={{
+          rowsPerPageText: "Usuarios por página: ",
+        }}
       />
     </div>
   ) : null;
