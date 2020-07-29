@@ -135,7 +135,7 @@ const Header = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="#">
+                    <Link className="dropdown-item" to="/admin/shapes/create">
                       Cargar nuevo shape
                     </Link>
                   </li>

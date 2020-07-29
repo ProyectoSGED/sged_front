@@ -118,16 +118,21 @@ const UserForm = ({ isEditForm, buttonName, userId }) => {
         </div>
         <div className="form-group">
           <label htmlFor="id_perfil">Perfil</label>
-          <select
-            className="form-control"
-            id="id_perfil"
-            required
-            value={isEditForm && state.user ? state.user[0].id_perfil : ""}
-          >
+          <select className="form-control" id="id_perfil" required>
             <option value="">Seleccione un perfil</option>
             {state.profiles
               ? state.profiles.map((profile, index) => (
-                  <option value={profile.id_perfil} key={index}>
+                  <option
+                    value={profile.id_perfil}
+                    key={index}
+                    selected={
+                      isEditForm &&
+                      state.user &&
+                      profile.id_perfil === state.user[0].id_perfil
+                        ? true
+                        : false
+                    }
+                  >
                     {profile.nombre_perfil}
                   </option>
                 ))
