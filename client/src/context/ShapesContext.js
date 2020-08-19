@@ -3,12 +3,16 @@ import SgedAPi from "../api/SgedAPI";
 
 const shapesReducer = (state, action) => {
   switch (action.type) {
+    case "upload_progress":
+      return { ...state, uploadProgress: action.payload };
+    case "new_shape":
+      return { ...state, message: action.payload };
     case "shapes_categories":
       return { shapesCategories: action.payload, errorMessage: "" };
     case "shapes_list":
       return { shapesList: action.payload, errorMessage: "" };
     case "add_error":
-      return { errorMessage: action.payload };
+      return { ...state, errorMessage: action.payload };
     case "clear_shape":
       return { shapeList: null };
     default:
@@ -49,6 +53,47 @@ const shapesListByCategory = (dispatch) => async (idCategoria) => {
   }
 };
 
+const createNewShape = (dispatch) => async ({
+  nombre_shape,
+  resumen_shape,
+  autor_shape,
+  shape_fecha_metadato,
+  id_categoria,
+  shape_file,
+  nombre_categoria,
+}) => {
+  try {
+    const formData = new FormData();
+
+    formData.append("shape_file", shape_file);
+    formData.append("nombre_shape", nombre_shape);
+    formData.append("resumen_shape", resumen_shape);
+    formData.append("autor_shape", autor_shape);
+    formData.append("shape_fecha_metadato", shape_fecha_metadato);
+    formData.append("id_categoria", id_categoria);
+    formData.append("nombre_categoria", nombre_categoria);
+
+    const newShape = await SgedAPi.post("/shapes/new", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      onUploadProgress: (ev) => {
+        const progress = (ev.loaded / ev.total) * 100;
+
+        if (progress < 100) {
+          dispatch({ type: "upload_progress", payload: Math.round(progress) });
+        }
+      },
+    });
+
+    newShape.data.status
+      ? dispatch({ type: "new_shape", payload: newShape.data.message })
+      : dispatch({ type: "add_error", payload: newShape.data.error });
+  } catch (err) {
+    dispatch({ type: "add_error", payload: err.message });
+  }
+};
+
 const downloadShape = (dispatch) => async (idShape, shapeName) => {
   try {
     const url = `/shapes/file?id_shape=${idShape}`;
@@ -75,6 +120,19 @@ const downloadShape = (dispatch) => async (idShape, shapeName) => {
 
 export const { Provider, Context } = CreatedataContext(
   shapesReducer,
-  { getShapesCategories, shapesListByCategory, downloadShape, clearShape },
-  { shapesList: null, shapesCategories: null, errorMessage: "" }
+  {
+    getShapesCategories,
+    shapesListByCategory,
+    downloadShape,
+    clearShape,
+    createNewShape,
+  },
+  {
+    uploadProgress: 0,
+    shapesList: null,
+    shapesCategories: null,
+    errorMessage: "",
+    message: "",
+    hideLoading: false,
+  }
 );

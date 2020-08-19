@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context as UsersAdminContext } from "../context/UsersAdminContext";
+import SubmitMessage from "./SubmitMessage";
 
 const UserForm = ({ isEditForm, buttonName, userId }) => {
   const {
@@ -47,30 +48,10 @@ const UserForm = ({ isEditForm, buttonName, userId }) => {
   return (
     <div className="container-md">
       {state.message || state.errorMessage ? (
-        <div
-          className={`alert ${
-            state.message
-              ? "alert-success"
-              : state.errorMessage
-              ? "alert-danger"
-              : null
-          } alert-dismissible fade show`}
-          role="alert"
-        >
-          {state.message
-            ? state.message
-            : state.errorMessage
-            ? state.errorMessage
-            : null}
-          <button
-            type="button"
-            className="close"
-            data-dismiss="alert"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
+        <SubmitMessage
+          errorMessage={state.errorMessage}
+          successMessage={state.message}
+        />
       ) : null}
       <form
         onSubmit={(e) => {
