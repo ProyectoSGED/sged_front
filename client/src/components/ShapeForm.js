@@ -27,10 +27,14 @@ const ShapeForm = () => {
           .text,
     };
 
+    setShowLoading(true);
+
+    e.target.reset();
     createNewShape(params);
   }
 
   console.log(state);
+  console.log(showLoading);
 
   return (
     <div className="container-md">
@@ -109,11 +113,16 @@ const ShapeForm = () => {
           />
         </div>
         {showLoading && !state.hideLoading ? (
-          <div
-            className="float-right spinner-border text-primary"
-            role="status"
-          >
-            <span className="sr-only">Loading...</span>
+          <div className="loading-container">
+            <h5 style={{ marginRight: 20, marginTop: 5 }}>
+              Cargando... {state.uploadProgress}%
+            </h5>
+            <div
+              className="float-right spinner-border text-primary"
+              role="status"
+            >
+              <span className="sr-only"></span>
+            </div>
           </div>
         ) : (
           <button

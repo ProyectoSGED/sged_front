@@ -4,15 +4,15 @@ import SgedAPi from "../api/SgedAPI";
 const shapesReducer = (state, action) => {
   switch (action.type) {
     case "upload_progress":
-      return { ...state, uploadProgress: action.payload };
+      return { ...state, uploadProgress: action.payload, hideLoading: false };
     case "new_shape":
-      return { ...state, message: action.payload };
+      return { ...state, message: action.payload, hideLoading: true };
     case "shapes_categories":
       return { shapesCategories: action.payload, errorMessage: "" };
     case "shapes_list":
       return { shapesList: action.payload, errorMessage: "" };
     case "add_error":
-      return { ...state, errorMessage: action.payload };
+      return { ...state, errorMessage: action.payload, hideLoading: true };
     case "clear_shape":
       return { shapeList: null };
     default:

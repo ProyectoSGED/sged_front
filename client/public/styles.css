@@ -270,3 +270,8 @@
   padding: 8px;
   font-size: 30px;
 }
+.loading-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
