@@ -275,3 +275,11 @@
   flex-direction: row;
   justify-content: flex-end;
 }
+.makeStyles-secondaryHeading-4 {
+  color: #ffffff;
+  font-size: 1.125rem;
+  margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

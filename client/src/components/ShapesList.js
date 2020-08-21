@@ -27,6 +27,7 @@ const useStyle = makeStyles((theme) => ({
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(18),
     color: "#FFFFFF",
+    marginLeft: 30,
   },
   shapeDates: {
     flexDirection: "row",

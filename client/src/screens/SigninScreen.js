@@ -1,7 +1,7 @@
 import React from "react";
 
 function signin() {
-  localStorage.setItem("user", "loncho");
+  localStorage.setItem("user", "Admin");
 }
 
 const SigninScreen = () => {
