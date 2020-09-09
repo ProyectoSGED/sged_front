@@ -1,6 +1,6 @@
 import React from "react";
 
-const SubmitMessage = ({ successMessage, errorMessage }) => {
+const SubmitMessage = ({ successMessage, errorMessage, handleMessage }) => {
   return (
     <div
       className={`alert ${
@@ -14,6 +14,7 @@ const SubmitMessage = ({ successMessage, errorMessage }) => {
         className="close"
         data-dismiss="alert"
         aria-label="Close"
+        onClick={handleMessage}
       >
         <span aria-hidden="true">&times;</span>
       </button>

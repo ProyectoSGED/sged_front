@@ -3,13 +3,17 @@ import { Context as ShapeAdminContext } from "../context/ShapesContext";
 import SubmitMessage from "./SubmitMessage";
 
 const ShapeForm = () => {
-  const { state, getShapesCategories, createNewShape } = useContext(
+  const { state, getShapesCategories, createNewShape, clearShape } = useContext(
     ShapeAdminContext
   );
   const [showLoading, setShowLoading] = useState(false);
 
   useEffect(() => {
     getShapesCategories();
+
+    return () => {
+      clearShape();
+    };
   }, []);
 
   function onSubmit(e) {

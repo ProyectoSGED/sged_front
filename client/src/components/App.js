@@ -11,6 +11,8 @@ import UsersListsScreen from "../screens/UsersListsScreen";
 import UserCreateScreen from "../screens/UserCreateScreen";
 import UserEditScreen from "../screens/UserEditScreen";
 import ShapeCreateScreen from "../screens/ShapeCreateScreen";
+import MapScreen from "../screens/MapScreen";
+import ShapeListScreen from "../screens/ShapeListScreen";
 
 const App = () => {
   return (
@@ -34,6 +36,7 @@ const App = () => {
             }
           />
           <Route path="/admin/users/list" exact component={UsersListsScreen} />
+          <Route path="/admin/shapes/list" exact component={ShapeListScreen} />
           <Route
             path="/admin/users/create"
             exact
@@ -45,6 +48,7 @@ const App = () => {
             exact
             component={ShapeCreateScreen}
           />
+          <Route path="/map" exact component={MapScreen} />
         </div>
       </div>
       <div className="footerContainer">

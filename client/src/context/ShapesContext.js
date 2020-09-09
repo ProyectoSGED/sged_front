@@ -10,11 +10,14 @@ const shapesReducer = (state, action) => {
     case "shapes_categories":
       return { shapesCategories: action.payload, errorMessage: "" };
     case "shapes_list":
-      return { shapesList: action.payload, errorMessage: "" };
+    case "shapes_list_all":
+      return { ...state, shapesList: action.payload, errorMessage: "" };
+    case "delete_shape":
+      return { ...state, message: action.payload };
     case "add_error":
       return { ...state, errorMessage: action.payload, hideLoading: true };
     case "clear_shape":
-      return { shapeList: null };
+      return { errorMessage: "", message: "" };
     default:
       return state;
   }
@@ -47,6 +50,32 @@ const shapesListByCategory = (dispatch) => async (idCategoria) => {
 
     shapes.data.status
       ? dispatch({ type: "shapes_list", payload: shapes.data.shapes })
+      : dispatch({ type: "add_error", payload: shapes.data.error });
+  } catch (err) {
+    dispatch({ type: "add_error", payload: err.message });
+  }
+};
+
+const deleteShape = (dispatch) => async (idShape) => {
+  try {
+    dispatch({ type: "clear_message" });
+
+    const response = await SgedAPi.delete(`shapes/delete?id_shape=${idShape}`);
+
+    response.data.status
+      ? dispatch({ type: "delete_shape", payload: response.data.message })
+      : dispatch({ type: "add_error", payload: response.data.error });
+  } catch (err) {
+    dispatch({ type: "add_error", payload: err.message });
+  }
+};
+
+const getAllShapes = (dispatch) => async () => {
+  try {
+    const shapes = await SgedAPi.get("/shapes/list/all");
+
+    shapes.data.status
+      ? dispatch({ type: "shapes_list_all", payload: shapes.data.shapes })
       : dispatch({ type: "add_error", payload: shapes.data.error });
   } catch (err) {
     dispatch({ type: "add_error", payload: err.message });
@@ -121,6 +150,8 @@ const downloadShape = (dispatch) => async (idShape, shapeName) => {
 export const { Provider, Context } = CreatedataContext(
   shapesReducer,
   {
+    deleteShape,
+    getAllShapes,
     getShapesCategories,
     shapesListByCategory,
     downloadShape,

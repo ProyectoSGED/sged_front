@@ -37,11 +37,8 @@ const HomeScreen = () => {
               SISTEMA DE INFORMACIÓN TERRITORIAL
             </p>
             <div className="buttons-container">
-              <Link to="#" className="access-button">
-                Ingresar como visita
-              </Link>
-              <Link to="/signin" className="access-button">
-                Ingresar con cuenta
+              <Link to="/map" className="access-button">
+                Ingresar a servidor de mapa
               </Link>
             </div>
           </div>

@@ -68,7 +68,7 @@ const UsersResult = () => {
 
     window.location.reload();
   }
-  console.log(state);
+
   return state.userList ? (
     <div>
       {openDialog ? (
