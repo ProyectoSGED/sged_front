@@ -2,17 +2,28 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context as ShapeAdminContext } from "../context/ShapesContext";
 import SubmitMessage from "./SubmitMessage";
 
-const ShapeForm = () => {
-  const { state, getShapesCategories, createNewShape, clearShape } = useContext(
-    ShapeAdminContext
-  );
+const ShapeForm = ({ isEditForm, idShape, buttonName }) => {
+  const {
+    state,
+    getShapesCategories,
+    createNewShape,
+    clearMessage,
+    getShapeById,
+    updateShape,
+  } = useContext(ShapeAdminContext);
+
   const [showLoading, setShowLoading] = useState(false);
+  const [updateShapeFile, setUpdateShapeFile] = useState(false);
 
   useEffect(() => {
     getShapesCategories();
 
+    if (isEditForm) {
+      getShapeById(idShape);
+    }
+
     return () => {
-      clearShape();
+      clearMessage();
     };
   }, []);
 
@@ -20,35 +31,48 @@ const ShapeForm = () => {
     e.preventDefault();
 
     const params = {
+      id_shape: idShape,
       nombre_shape: e.target.shapeName.value,
       resumen_shape: e.target.shapeResume.value,
       autor_shape: e.target.shapeAutor.value,
       shape_fecha_metadato: e.target.shapeDateMetadata.value,
-      id_categoria: e.target.shapeCategorie.value,
-      shape_file: e.target.loadShapeFile.files[0],
+      id_categoria: e.target.shapeCategory.value,
       nombre_categoria:
-        e.target.shapeCategorie.options[e.target.shapeCategorie.selectedIndex]
+        e.target.shapeCategory.options[e.target.shapeCategory.selectedIndex]
           .text,
+      update_shape_file: updateShapeFile ? 1 : 0,
     };
+
+    if (isEditForm && updateShapeFile) {
+      params.shape_file = e.target.loadShapeFile.files[0];
+    } else if (!isEditForm) {
+      params.shape_file = e.target.loadShapeFile.files[0];
+    }
 
     setShowLoading(true);
 
-    e.target.reset();
-    createNewShape(params);
+    if (isEditForm) {
+      updateShape(params);
+    } else {
+      createNewShape(params);
+    }
   }
 
-  console.log(state);
-  console.log(showLoading);
+  if (state.message) {
+    document.getElementById("shape-form").reset();
+  }
 
   return (
     <div className="container-md">
       {state.message || state.errorMessage ? (
         <SubmitMessage
-          errorMessage={state.errorMessage}
           successMessage={state.message}
+          errorMessage={state.errorMessage}
         />
       ) : null}
+
       <form
+        id="shape-form"
         onSubmit={(e) => {
           onSubmit(e);
         }}
@@ -58,6 +82,9 @@ const ShapeForm = () => {
           <input
             type="text"
             id="shapeName"
+            defaultValue={
+              isEditForm && state.shape ? state.shape[0].nombre_shape : ""
+            }
             className="form-control"
             required
             placeholder={"Ingrese nombre de shape..."}
@@ -66,6 +93,7 @@ const ShapeForm = () => {
         <div className="form-group">
           <label htmlFor="shapeAutor">Autor de shape</label>
           <input
+            defaultValue={isEditForm && state.shape ? state.shape[0].autor : ""}
             type="text"
             id="shapeAutor"
             className="form-control"
@@ -76,6 +104,11 @@ const ShapeForm = () => {
         <div className="form-group">
           <label htmlFor="shapeDateMetadata">Fecha creación del metadato</label>
           <input
+            defaultValue={
+              isEditForm && state.shape
+                ? state.shape[0].fecha_creacion_metadato
+                : ""
+            }
             id="shapeDateMetadata"
             className="form-control"
             type="date"
@@ -83,13 +116,23 @@ const ShapeForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="shapeCategorie">Categoria del shape</label>
-          <select id="shapeCategorie" className="form-control" required>
+          <label htmlFor="shapeCategory">Categoria del shape</label>
+          <select id="shapeCategory" className="form-control" required>
             <option value="">Seleccione categoría de shape</option>
             {state.shapesCategories
-              ? state.shapesCategories.map((categorie, index) => (
-                  <option value={categorie.id_categoria} key={index}>
-                    {categorie.nombre_categoria}
+              ? state.shapesCategories.map((category, index) => (
+                  <option
+                    value={category.id_categoria}
+                    key={index}
+                    selected={
+                      isEditForm &&
+                      state.shape &&
+                      category.id_categoria == state.shape[0].id_categoria
+                        ? true
+                        : false
+                    }
+                  >
+                    {category.nombre_categoria}
                   </option>
                 ))
               : null}
@@ -98,6 +141,9 @@ const ShapeForm = () => {
         <div className="form-group">
           <label htmlFor="shapeResume">Resumen de shape</label>
           <textarea
+            defaultValue={
+              isEditForm && state.shape ? state.shape[0].resumen_shape : ""
+            }
             id="shapeResume"
             className="form-control"
             placeholder={"Ingrese un resumen del contenido del shape..."}
@@ -105,22 +151,62 @@ const ShapeForm = () => {
             required
           ></textarea>
         </div>
-        <div className="form-group">
-          <label htmlFor="loadShapeFile">Añadir archivo shape</label>
-          <input
-            required
-            type="file"
-            className="form-control-file"
-            id="loadShapeFile"
-            accept=".zip"
-            multiple={false}
-          />
-        </div>
+        {isEditForm ? (
+          <div className="form-group form-check">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="addShape"
+              value={updateShapeFile}
+              onChange={(e) => setUpdateShapeFile(e.target.checked)}
+            />
+            <label className="form-chek-label" htmlFor="addShape">
+              ¿Modificar archivo para capa de información?
+            </label>
+          </div>
+        ) : null}
+
+        {isEditForm && updateShapeFile ? (
+          <div className="form-group">
+            <label htmlFor="loadShapeFile">Añadir archivo shape</label>
+            <input
+              required
+              type="file"
+              className="form-control-file"
+              id="loadShapeFile"
+              accept=".zip"
+              multiple={false}
+            />
+          </div>
+        ) : null}
+
+        {!isEditForm ? (
+          <div className="form-group">
+            <label htmlFor="loadShapeFile">Añadir archivo shape</label>
+            <input
+              required
+              type="file"
+              className="form-control-file"
+              id="loadShapeFile"
+              accept=".zip"
+              multiple={false}
+            />
+          </div>
+        ) : null}
+
         {showLoading && !state.hideLoading ? (
           <div className="loading-container">
-            <h5 style={{ marginRight: 20, marginTop: 5 }}>
-              Cargando... {state.uploadProgress}%
-            </h5>
+            {isEditForm && updateShapeFile ? (
+              <h5 style={{ marginRight: 20, marginTop: 5 }}>
+                Cargando... {state.uploadProgress}%
+              </h5>
+            ) : null}
+
+            {!isEditForm ? (
+              <h5 style={{ marginRight: 20, marginTop: 5 }}>
+                Cargando... {state.uploadProgress}%
+              </h5>
+            ) : null}
             <div
               className="float-right spinner-border text-primary"
               role="status"
@@ -133,8 +219,7 @@ const ShapeForm = () => {
             type="submit"
             className="signin-btn btn btn-primary float-right"
           >
-            Crear nuevo shape
-            {/*buttonName*/}
+            {buttonName}
           </button>
         )}
       </form>

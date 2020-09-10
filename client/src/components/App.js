@@ -11,6 +11,7 @@ import UsersListsScreen from "../screens/UsersListsScreen";
 import UserCreateScreen from "../screens/UserCreateScreen";
 import UserEditScreen from "../screens/UserEditScreen";
 import ShapeCreateScreen from "../screens/ShapeCreateScreen";
+import ShapeUpdateScreen from "../screens/ShapeUpdateScreen";
 import MapScreen from "../screens/MapScreen";
 import ShapeListScreen from "../screens/ShapeListScreen";
 
@@ -47,6 +48,11 @@ const App = () => {
             path="/admin/shapes/create"
             exact
             component={ShapeCreateScreen}
+          />
+          <Route
+            path="/admin/shape/update"
+            exact
+            component={ShapeUpdateScreen}
           />
           <Route path="/map" exact component={MapScreen} />
         </div>

@@ -5,7 +5,7 @@ const ShapeCreateScreen = () => {
   return (
     <div className="screen-container container-fluid">
       <h4 style={{ textAlign: "center", marginBottom: 30 }}>Nuevo shape</h4>
-      <ShapeForm />
+      <ShapeForm buttonName={"Crear nuevo shape"} isEditForm={false} />
     </div>
   );
 };

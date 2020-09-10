@@ -6,7 +6,7 @@ const userAdminReducer = (state, action) => {
     case "get_user":
       return { ...state, user: action.payload, errorMessage: "" };
     case "get_users_list":
-      return { userList: action.payload, errorMessage: "" };
+      return { ...state, userList: action.payload, errorMessage: "" };
     case "deactivate_user":
       return { ...state, message: action.payload };
     case "update_user":
@@ -25,6 +25,8 @@ const userAdminReducer = (state, action) => {
       };
     case "profile_list":
       return { ...state, profiles: action.payload };
+    case "clear_message":
+      return { ...state, errorMessage: "", message: "" };
     case "add_error":
       return {
         ...state,
@@ -34,6 +36,10 @@ const userAdminReducer = (state, action) => {
     default:
       return state;
   }
+};
+
+const clearMessage = (dispatch) => () => {
+  dispatch({ type: "clear_message" });
 };
 
 const getProfileList = (dispatch) => async () => {
@@ -144,6 +150,7 @@ export const { Provider, Context } = CreatedataContext(
   userAdminReducer,
   {
     getUsersList,
+    clearMessage,
     deactivateUser,
     getProfileList,
     createNewUser,

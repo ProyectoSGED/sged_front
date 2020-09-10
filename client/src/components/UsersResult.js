@@ -3,9 +3,12 @@ import { Link } from "react-router-dom";
 import DataTable from "react-data-table-component";
 import { Context as UsersAdminContext } from "../context/UsersAdminContext";
 import AlertDialog from "./AlertDialog";
+import SubmitMessage from "./SubmitMessage";
 
 const UsersResult = () => {
-  const { state, getUsersList, deactivateUser } = useContext(UsersAdminContext);
+  const { state, getUsersList, deactivateUser, clearMessage } = useContext(
+    UsersAdminContext
+  );
   const [openDialog, setOpenDialog] = useState(false);
   const [userId, setUserId] = useState(null);
 
@@ -59,18 +62,27 @@ const UsersResult = () => {
     },
   ];
 
+  function handleMessage() {
+    clearMessage();
+  }
+
   useEffect(() => {
     getUsersList();
-  }, []);
+  }, [state.message]);
 
   function handleDeactivateUser() {
     deactivateUser(userId);
-
-    window.location.reload();
   }
 
   return state.userList ? (
     <div>
+      {state.message || state.errorMessage ? (
+        <SubmitMessage
+          errorMessage={state.errorMessage}
+          successMessage={state.message}
+          handleMessage={handleMessage}
+        />
+      ) : null}
       {openDialog ? (
         <AlertDialog
           openDialog={setOpenDialog}

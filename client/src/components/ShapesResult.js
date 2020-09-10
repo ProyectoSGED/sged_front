@@ -6,7 +6,7 @@ import AlertDialog from "./AlertDialog";
 import SubmitMessage from "./SubmitMessage";
 
 const ShapesResult = () => {
-  const { state, clearShape, getAllShapes, deleteShape } = useContext(
+  const { state, clearMessage, getAllShapes, deleteShape } = useContext(
     ShapesContext
   );
   const [openDialog, setOpenDialog] = useState(false);
@@ -46,7 +46,7 @@ const ShapesResult = () => {
             ></i>
           </div>
           <div>
-            <Link to={{ pathname: "#", state: row.id_shape }}>
+            <Link to={{ pathname: "/admin/shape/update", state: row.id_shape }}>
               <i
                 className="action-icon fas fa-edit"
                 style={{ color: "blue" }}
@@ -59,14 +59,12 @@ const ShapesResult = () => {
   ];
 
   function handleMessage() {
-    clearShape();
+    clearMessage();
   }
 
   useEffect(() => {
     getAllShapes();
-  }, [state.message, state.errorMessage]);
-
-  console.log(state);
+  }, [state.message]);
 
   return state.shapesList ? (
     <div>

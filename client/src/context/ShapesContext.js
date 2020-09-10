@@ -3,28 +3,67 @@ import SgedAPi from "../api/SgedAPI";
 
 const shapesReducer = (state, action) => {
   switch (action.type) {
+    case "get_shape":
+      return { ...state, shape: action.payload };
     case "upload_progress":
-      return { ...state, uploadProgress: action.payload, hideLoading: false };
+      return {
+        ...state,
+        uploadProgress: action.payload,
+        hideLoading: false,
+        message: "",
+        errorMessage: "",
+      };
     case "new_shape":
-      return { ...state, message: action.payload, hideLoading: true };
+      return {
+        ...state,
+        message: action.payload,
+        hideLoading: true,
+        errorMessage: "",
+        clearForm: true,
+      };
+
+    case "update_shape":
+      return {
+        ...state,
+        message: action.payload,
+        hideLoading: true,
+        errorMessage: "",
+        clearForm: true,
+      };
     case "shapes_categories":
       return { shapesCategories: action.payload, errorMessage: "" };
     case "shapes_list":
     case "shapes_list_all":
-      return { ...state, shapesList: action.payload, errorMessage: "" };
+      return {
+        ...state,
+        shapesList: action.payload,
+        errorMessage: "",
+        showMessage: true,
+      };
     case "delete_shape":
-      return { ...state, message: action.payload };
+      return { ...state, message: action.payload, showMessage: true };
     case "add_error":
-      return { ...state, errorMessage: action.payload, hideLoading: true };
-    case "clear_shape":
-      return { errorMessage: "", message: "" };
+      return {
+        ...state,
+        errorMessage: action.payload,
+        hideLoading: true,
+        showMessage: true,
+      };
+    case "clear_shapes":
+      return { shapesList: null };
+    case "clear_message":
+      return { ...state, errorMessage: "", message: "" };
     default:
       return state;
   }
 };
 
 const clearShape = (dispatch) => () => {
-  dispatch({ type: "clear_shape" });
+  dispatch({ type: "clear_shapes" });
+};
+
+const clearMessage = (dispatch) => () => {
+  dispatch({ type: "clear_message" });
 };
 
 const getShapesCategories = (dispatch) => async () => {
@@ -123,6 +162,78 @@ const createNewShape = (dispatch) => async ({
   }
 };
 
+const updateShape = (dispatch) => async ({
+  id_shape,
+  nombre_shape,
+  resumen_shape,
+  autor_shape,
+  shape_fecha_metadato,
+  id_categoria,
+  shape_file,
+  nombre_categoria,
+  update_shape_file,
+}) => {
+  try {
+    const formData = new FormData();
+
+    formData.append("id_shape", id_shape);
+    formData.append("nombre_shape", nombre_shape);
+    formData.append("resumen_shape", resumen_shape);
+    formData.append("autor_shape", autor_shape);
+    formData.append("shape_fecha_metadato", shape_fecha_metadato);
+    formData.append("id_categoria", id_categoria);
+    formData.append("nombre_categoria", nombre_categoria);
+    formData.append("_method", "PUT");
+
+    let updateShape;
+
+    if (update_shape_file) {
+      formData.append("shape_file", shape_file);
+      formData.append("update_shape_file", update_shape_file);
+
+      updateShape = await SgedAPi.post("/shapes/update", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        onUploadProgress: (ev) => {
+          const progress = (ev.loaded / ev.total) * 100;
+
+          if (progress < 100) {
+            dispatch({
+              type: "upload_progress",
+              payload: Math.round(progress),
+            });
+          }
+        },
+      });
+    } else {
+      updateShape = await SgedAPi.post("/shapes/update", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    }
+
+    updateShape.data.status
+      ? dispatch({ type: "update_shape", payload: updateShape.data.message })
+      : dispatch({ type: "add_error", payload: updateShape.data.error });
+  } catch (err) {
+    dispatch({ type: "add_error", payload: err.message });
+  }
+};
+
+const getShapeById = (dispatch) => async (idShape) => {
+  try {
+    const shape = await SgedAPi.get(`/shapes/get?id_shape=${idShape}`);
+
+    shape.data.status
+      ? dispatch({ type: "get_shape", payload: shape.data.shape })
+      : dispatch({ type: "add_error", payload: shape.data.error });
+  } catch (err) {
+    dispatch({ type: "add_error", payload: err.message });
+  }
+};
+
 const downloadShape = (dispatch) => async (idShape, shapeName) => {
   try {
     const url = `/shapes/file?id_shape=${idShape}`;
@@ -155,15 +266,21 @@ export const { Provider, Context } = CreatedataContext(
     getShapesCategories,
     shapesListByCategory,
     downloadShape,
-    clearShape,
+    clearMessage,
     createNewShape,
+    getShapeById,
+    updateShape,
+    clearShape,
   },
   {
     uploadProgress: 0,
     shapesList: null,
+    shape: null,
     shapesCategories: null,
     errorMessage: "",
     message: "",
     hideLoading: false,
+    showMessage: false,
+    clearForm: false,
   }
 );

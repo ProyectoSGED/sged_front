@@ -8,6 +8,7 @@ const UserForm = ({ isEditForm, buttonName, userId }) => {
     getProfileList,
     createNewUser,
     getUserById,
+    clearMessage,
     editUser,
   } = useContext(UsersAdminContext);
 
@@ -43,6 +44,10 @@ const UserForm = ({ isEditForm, buttonName, userId }) => {
       getUserById(userId);
     }
     getProfileList();
+
+    return () => {
+      clearMessage();
+    };
   }, []);
 
   return (
