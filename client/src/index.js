@@ -7,12 +7,15 @@ import App from "./components/App";
 //PROVIDERS
 import { Provider as UserAdminProvider } from "./context/UsersAdminContext";
 import { Provider as ShapesProvider } from "./context/ShapesContext";
+import { Provider as ContactProvider } from "./context/ContactContext";
 
 ReactDOM.render(
   <BrowserRouter>
     <ShapesProvider>
       <UserAdminProvider>
-        <App />
+        <ContactProvider>
+          <App />
+        </ContactProvider>
       </UserAdminProvider>
     </ShapesProvider>
   </BrowserRouter>,
