@@ -12,6 +12,10 @@ const ShapesResult = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [shapeId, setShapeId] = useState(null);
 
+  const { profile } = localStorage.getItem("session")
+    ? JSON.parse(localStorage.getItem("session"))
+    : "";
+
   function deleteShapeById(shapeId) {
     setShapeId(shapeId);
     setOpenDialog(true);
@@ -39,12 +43,15 @@ const ShapesResult = () => {
       name: "Acciones",
       cell: (row) => (
         <div className="actions-container">
-          <div onClick={() => deleteShapeById(row.id_shape)}>
-            <i
-              className="action-icon fas fa-trash-alt"
-              style={{ color: "red" }}
-            ></i>
-          </div>
+          {profile === "ADMINISTRADOR" ? (
+            <div onClick={() => deleteShapeById(row.id_shape)}>
+              <i
+                className="action-icon fas fa-trash-alt"
+                style={{ color: "red" }}
+              ></i>
+            </div>
+          ) : null}
+
           <div>
             <Link to={{ pathname: "/admin/shape/update", state: row.id_shape }}>
               <i

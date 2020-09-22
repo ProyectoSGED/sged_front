@@ -1,21 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Context as SessionContext } from "../context/SessionContext";
 
 const Header = () => {
   const [selectedItem, setSelectedItem] = useState("");
+  const { state, signout } = useContext(SessionContext);
+
   const currentPath = useLocation();
+  const { user, profile } = localStorage.getItem("session")
+    ? JSON.parse(localStorage.getItem("session"))
+    : "";
 
   function handleSelectedItem(routeName) {
     setSelectedItem(routeName);
   }
 
-  function signout() {
-    localStorage.removeItem("user");
-  }
-
   useEffect(() => {
     handleSelectedItem(currentPath.pathname);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <nav className="navigation navbar navbar-light bg-ligth">
@@ -28,15 +30,15 @@ const Header = () => {
       >
         <img
           src={`${process.env.PUBLIC_URL}/images/logo_obs.jpg`}
-          width="290"
-          height="66"
+          width="250"
+          height="63.3"
           alt="logo_obs"
           loading="lazy"
         />
         <img
           src={`${process.env.PUBLIC_URL}/images/logo_ide.png`}
-          width="66"
-          height="66"
+          width="120"
+          height="63.3"
           alt="logo_ide"
           loading="lazy"
         />
@@ -65,7 +67,7 @@ const Header = () => {
               handleSelectedItem("/shapes");
             }}
           >
-            Descarga de capas
+            Descarga capas de información
           </Link>
         </li>
         <li className="nav-link nav-item">
@@ -81,7 +83,7 @@ const Header = () => {
             Formulario de contacto
           </Link>
         </li>
-        {!localStorage.getItem("user") ? (
+        {!localStorage.getItem("session") ? (
           <li className="nav-link nav-item">
             <Link
               to="/signin"
@@ -104,53 +106,64 @@ const Header = () => {
               aria-expanded="false"
               aria-haspopup="true"
             >
-              Bienvenido: {localStorage.getItem("user")}
+              Bienvenido: {user}
             </Link>
             <ul className="dropdown-menu dropdown-menu-right">
+              {profile.toUpperCase() == "ADMINISTRADOR" ? (
+                <li id="users-admin">
+                  <Link className="dropdown-item" to="#">
+                    Administrar usuarios
+                  </Link>
+                  <ul className="submenu submenu-left dropdown-menu">
+                    <li>
+                      <Link className="dropdown-item" to="/admin/users/list">
+                        Listado de usuarios
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="dropdown-item" to="/admin/users/create">
+                        Crear nuevo usuario
+                      </Link>
+                    </li>
+                  </ul>
+                </li>
+              ) : null}
+
+              {profile.toUpperCase() == "ADMINISTRADOR" ||
+              profile.toUpperCase() == "EDITOR" ? (
+                <li id="shapes-admin">
+                  <Link className="dropdown-item" to="#">
+                    Administrar capas de información
+                  </Link>
+                  <ul className="submenu submenu-left dropdown-menu">
+                    <li>
+                      <Link className="dropdown-item" to="/admin/shapes/list">
+                        Listado capas de información
+                      </Link>
+                    </li>
+                    {profile.toUpperCase() == "ADMINISTRADOR" ? (
+                      <li>
+                        <Link
+                          className="dropdown-item"
+                          to="/admin/shapes/create"
+                        >
+                          Cargar nueva capa de información
+                        </Link>
+                      </li>
+                    ) : null}
+                  </ul>
+                </li>
+              ) : null}
               <li>
-                <Link className="dropdown-item" to="#">
-                  Administrar usuarios
-                </Link>
-                <ul className="submenu submenu-left dropdown-menu">
-                  <li>
-                    <Link className="dropdown-item" to="/admin/users/list">
-                      Listado de usuarios
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="dropdown-item" to="/admin/users/create">
-                      Crear nuevo usuario
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <Link className="dropdown-item" to="#">
-                  Administrar shapes
-                </Link>
-                <ul className="submenu submenu-left dropdown-menu">
-                  <li>
-                    <Link className="dropdown-item" to="/admin/shapes/list">
-                      Listado de shapes
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="dropdown-item" to="/admin/shapes/create">
-                      Cargar nuevo shape
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a
-                  href="/"
+                <Link
                   className="dropdown-item"
                   onClick={() => {
                     signout();
                   }}
+                  to="/"
                 >
                   Cerrar sesión
-                </a>
+                </Link>
               </li>
             </ul>
           </li>

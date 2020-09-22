@@ -35,7 +35,7 @@ const ShapeForm = ({ isEditForm, idShape, buttonName }) => {
       nombre_shape: e.target.shapeName.value,
       resumen_shape: e.target.shapeResume.value,
       autor_shape: e.target.shapeAutor.value,
-      shape_fecha_metadato: e.target.shapeDateMetadata.value,
+      formato_capa_informacion: e.target.shapeFormat.value,
       id_categoria: e.target.shapeCategory.value,
       nombre_categoria:
         e.target.shapeCategory.options[e.target.shapeCategory.selectedIndex]
@@ -78,7 +78,7 @@ const ShapeForm = ({ isEditForm, idShape, buttonName }) => {
         }}
       >
         <div className="form-group">
-          <label htmlFor="shapeName">Nombre de shape</label>
+          <label htmlFor="shapeName">Nombre capa de información</label>
           <input
             type="text"
             id="shapeName"
@@ -91,7 +91,7 @@ const ShapeForm = ({ isEditForm, idShape, buttonName }) => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="shapeAutor">Autor de shape</label>
+          <label htmlFor="shapeAutor">Autor capa de información</label>
           <input
             defaultValue={isEditForm && state.shape ? state.shape[0].autor : ""}
             type="text"
@@ -102,23 +102,29 @@ const ShapeForm = ({ isEditForm, idShape, buttonName }) => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="shapeDateMetadata">Fecha creación del metadato</label>
-          <input
-            defaultValue={
+          <label htmlFor="shapeFormat">Formato capa de información</label>
+          <select
+            id="shapeFormat"
+            className="form-control"
+            required
+            value={
               isEditForm && state.shape
-                ? state.shape[0].fecha_creacion_metadato
+                ? state.shape[0].formato_capa_informacion
                 : ""
             }
-            id="shapeDateMetadata"
-            className="form-control"
-            type="date"
-            required
-          />
+          >
+            <option value="">
+              Seleccione formato para capa de información
+            </option>
+            <option value="shape">Shape</option>
+          </select>
         </div>
         <div className="form-group">
-          <label htmlFor="shapeCategory">Categoria del shape</label>
+          <label htmlFor="shapeCategory">Categoria capa de información</label>
           <select id="shapeCategory" className="form-control" required>
-            <option value="">Seleccione categoría de shape</option>
+            <option value="">
+              Seleccione categoría para capa de información
+            </option>
             {state.shapesCategories
               ? state.shapesCategories.map((category, index) => (
                   <option
@@ -139,7 +145,7 @@ const ShapeForm = ({ isEditForm, idShape, buttonName }) => {
           </select>
         </div>
         <div className="form-group">
-          <label htmlFor="shapeResume">Resumen de shape</label>
+          <label htmlFor="shapeResume">Resumen capa de información</label>
           <textarea
             defaultValue={
               isEditForm && state.shape ? state.shape[0].resumen_shape : ""
@@ -168,7 +174,9 @@ const ShapeForm = ({ isEditForm, idShape, buttonName }) => {
 
         {isEditForm && updateShapeFile ? (
           <div className="form-group">
-            <label htmlFor="loadShapeFile">Añadir archivo shape</label>
+            <label htmlFor="loadShapeFile">
+              Añadir archivo para capa de información
+            </label>
             <input
               required
               type="file"
@@ -182,7 +190,9 @@ const ShapeForm = ({ isEditForm, idShape, buttonName }) => {
 
         {!isEditForm ? (
           <div className="form-group">
-            <label htmlFor="loadShapeFile">Añadir archivo shape</label>
+            <label htmlFor="loadShapeFile">
+              Añadir archivo para capa de información
+            </label>
             <input
               required
               type="file"

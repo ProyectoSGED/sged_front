@@ -15,10 +15,15 @@ const AlertDialog = ({ openDialog, title, message, onAccept }) => {
   const [open, setOpen] = React.useState(true);
 
   function acceptedByUser() {
-    onAccept();
+    if (onAccept) {
+      onAccept();
+    }
+
+    if (openDialog) {
+      openDialog(false);
+    }
 
     setOpen(!open);
-    openDialog(false);
   }
 
   return (

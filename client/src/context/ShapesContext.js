@@ -125,7 +125,7 @@ const createNewShape = (dispatch) => async ({
   nombre_shape,
   resumen_shape,
   autor_shape,
-  shape_fecha_metadato,
+  formato_capa_informacion,
   id_categoria,
   shape_file,
   nombre_categoria,
@@ -137,7 +137,7 @@ const createNewShape = (dispatch) => async ({
     formData.append("nombre_shape", nombre_shape);
     formData.append("resumen_shape", resumen_shape);
     formData.append("autor_shape", autor_shape);
-    formData.append("shape_fecha_metadato", shape_fecha_metadato);
+    formData.append("formato_capa_informacion", formato_capa_informacion);
     formData.append("id_categoria", id_categoria);
     formData.append("nombre_categoria", nombre_categoria);
 
@@ -167,7 +167,7 @@ const updateShape = (dispatch) => async ({
   nombre_shape,
   resumen_shape,
   autor_shape,
-  shape_fecha_metadato,
+  formato_capa_informacion,
   id_categoria,
   shape_file,
   nombre_categoria,
@@ -180,7 +180,7 @@ const updateShape = (dispatch) => async ({
     formData.append("nombre_shape", nombre_shape);
     formData.append("resumen_shape", resumen_shape);
     formData.append("autor_shape", autor_shape);
-    formData.append("shape_fecha_metadato", shape_fecha_metadato);
+    formData.append("formato_capa_informacion", formato_capa_informacion);
     formData.append("id_categoria", id_categoria);
     formData.append("nombre_categoria", nombre_categoria);
     formData.append("_method", "PUT");

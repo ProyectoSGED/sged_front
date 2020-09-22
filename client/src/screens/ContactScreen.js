@@ -32,8 +32,6 @@ const ContactScreen = () => {
     document.getElementById("contact-form").reset();
   }
 
-  console.log(state);
-
   return (
     <div className="container-md screen-container">
       {state.message || state.errorMessage ? (

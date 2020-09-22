@@ -77,7 +77,7 @@ const ShapesList = ({ categorieId }) => {
                   Fecha publicación: {shape.fecha_publicacion}
                 </Typography>
                 <Typography>
-                  Fecha creación metadato: {shape.fecha_creacion_metadato}
+                  Formato: {shape.formato_capa_informacion}
                 </Typography>
               </AccordionDetails>
               <AccordionDetails>

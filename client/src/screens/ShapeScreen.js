@@ -67,7 +67,7 @@ const ShapeScreen = ({ location: { state } }) => {
         <div className="col-md-8">
           <div className="shapes-container">
             <h4 className="shape-list-title">
-              listado de shapes: {shapeItem.shapeTitle}
+              Capa de información: {shapeItem.shapeTitle}
             </h4>
             <div className="shape-list-container">
               {shapeItem.shapeCategorieId ? (

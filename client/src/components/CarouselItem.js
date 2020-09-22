@@ -6,7 +6,7 @@ const CarouselItem = ({ isFirstElement, imageName }) => {
       <img
         alt="item"
         height="400"
-        className="d-block w-100"
+        className="d-block w-100 carousel-image"
         src={`${process.env.PUBLIC_URL}/images/carousel/${imageName}`}
       />
     </div>
