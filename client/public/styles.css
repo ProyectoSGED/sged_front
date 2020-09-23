@@ -302,3 +302,43 @@
   width: 300px !important;
   align-self: center !important;
 }
+.policy-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.policy-text {
+  font-family: "Open Sans", sans-serif;
+  text-align: justify;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+}
+.policy-buttons-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+}
+.policy-button {
+  margin-right: 40px;
+}
+.search-result {
+  align-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.icon-close-container {
+  display: flex;
+  align-content: flex-start;
+  justify-content: flex-end;
+}
+.close-icon {
+  font-size: 30px;
+  position: absolute;
+  left: auto;
+  right: 30px;
+  top: 30px;
+}

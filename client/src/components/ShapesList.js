@@ -81,7 +81,9 @@ const ShapesList = ({ categorieId }) => {
                 </Typography>
               </AccordionDetails>
               <AccordionDetails>
-                <Typography>Resumen shape: {shape.resumen_shape}</Typography>
+                <Typography>
+                  Resumen capa de información: {shape.resumen_shape}
+                </Typography>
               </AccordionDetails>
               <Divider />
               <AccordionActions>

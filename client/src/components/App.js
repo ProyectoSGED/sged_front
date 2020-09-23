@@ -16,6 +16,7 @@ import ShapeCreateScreen from "../screens/ShapeCreateScreen";
 import ShapeUpdateScreen from "../screens/ShapeUpdateScreen";
 import MapScreen from "../screens/MapScreen";
 import ShapeListScreen from "../screens/ShapeListScreen";
+import MapPolicyScreen from "../screens/MapPolicyScreen";
 
 import { Context as SessionContext } from "../context/SessionContext";
 import AlertDialog from "./AlertDialog";
@@ -60,6 +61,7 @@ const App = () => {
           <Route path="/map" exact component={MapScreen} />
           <Route path="/shapes" exact component={SelectShapeScreen} />
           <Route path="/shapes/list" exact component={ShapeScreen} />
+          <Route path="/map/policy" exact component={MapPolicyScreen} />
           <Route
             path="/signin"
             exact

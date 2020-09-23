@@ -9,32 +9,39 @@ const ShapeScreen = ({ location: { state } }) => {
           shapeImage: "amenazas.png",
           shapeTitle: "amenazas",
           shapeCategorieId: 1,
-          shapeText:
-            "Los desastres, entendidos en un sentido amplio como procesos o eventos con resultados o efectos de connotación negativa que, sobre cierto umbral económico-social y/o de percepción, afectan parte o la totalidad del medio ambiente natural o del construido y su funcionalidad",
+          shapeText: `Una amenaza se puede explicar como un peligro latente que representa una amplia variedad de fenómenos (sean de origen natural o antrópico); y que puede afectar a una comunidad.
+            Sección que contiene información sobre amenazas de origen natural o antrópico. 
+            Las capas contenidas en esta sección, no representan en ningún caso mapas de riesgo.
+            Se distinguen capas de información generadas en UBO, así como otras generadas por otros organismos. Para verificar su procedencia se debe revisar su metadata y descripción de información.`,
         };
       case "infraestructura_critica":
         return {
           shapeImage: "infraestructura_critica.png",
           shapeTitle: "infraestructura critica",
           shapeCategorieId: 2,
-          shapeText:
-            "Una infraestructura crítica son las infraestructuras estratégicas que proporcionan servicios esenciales y cuyo funcionamiento es indispensable. De esta manera, su perturbación o destrucción tendría un grave impacto sobre los servicios esenciales.",
+          shapeText: `De acuerdo a la Comisión Europea aquellas instalaciones, redes, servicios y equipos físicos y de tecnología de la información cuya interrupción o destrucción tendría un impacto mayor en la salud, la seguridad o el bienestar económico de los ciudadanos o en el eficaz funcionamiento de los gobiernos de los Estados miembros.
+            Las capas contenidas en esta sección que contienen información sobre la infraestructura crítica.
+            Se distinguen capas de información generadas en UBO, así como otras generadas por otros organismos. Para verificar su procedencia se debe revisar su metadata y descripción de información. 
+            `,
         };
       case "datos_poblacion":
         return {
           shapeImage: "datos_poblacion.png",
           shapeTitle: "datos de población",
           shapeCategorieId: 3,
-          shapeText:
-            "Datos de poblacion es definido como un conjunto de personas que habitan una determinada área geográfica. Estadisticamente, el término “población” se refiere al conjunto de elementos que se quiere investigar, estos elementos pueden ser objetos, acontecimientos, situaciones o grupo de personas.",
+          shapeText: `Como dato de población se entiende las capas de información que contengan datos levantados en el Censo 2017 realizado por el Instituto Nacional de Estadísticas y datos generados por la Universidad Bernardo O’Higgins.
+            Se distinguen capas de información generadas en UBO, así como otras generadas por otros organismos. Para verificar su procedencia se debe revisar su metadata y descripción de información. 
+            `,
         };
       case "variables_fisicas_ambientales":
         return {
           shapeImage: "variables_fisicas_ambientales.png",
           shapeTitle: "variables físicas ambientales",
           shapeCategorieId: 4,
-          shapeText:
-            "Las variables ambientales han sido agrupadas en áreas temáticas como: hidrología, calidad del agua, suelos, geodinámica, biota y aspectos socioeconómicos. El propósito de la evaluación ambiental es determinar los efectos  de las actividades sobre dichas variables y que fectos pueden transmitirse entre ellas por medio de sus interacciones.",
+          shapeText: `Se entiende como variable ambiental a los componentes ambientales sea bióticos o abióticos, y que son parte del Medio Ambiente.
+            Las capas contenidas en esta sección que contienen información sobre las distintas variables ambientales.
+            Se distinguen capas de información generadas en UBO, así como otras generadas por otros organismos. Para verificar su procedencia se debe revisar su metadata y descripción de información. 
+            `,
         };
       default:
         return payload;

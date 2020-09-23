@@ -117,6 +117,9 @@ const ShapeForm = ({ isEditForm, idShape, buttonName }) => {
               Seleccione formato para capa de información
             </option>
             <option value="shape">Shape</option>
+            <option value="shape">Raster</option>
+            <option value="shape">Dwg</option>
+            <option value="shape">Pdf</option>
           </select>
         </div>
         <div className="form-group">

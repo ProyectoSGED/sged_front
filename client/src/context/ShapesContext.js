@@ -66,6 +66,18 @@ const clearMessage = (dispatch) => () => {
   dispatch({ type: "clear_message" });
 };
 
+const getShapeByQuery = (dispatch) => async (query) => {
+  try {
+    const shapes = await SgedAPi.get(`/shapes/search/?query=${query}`);
+
+    shapes.data.status
+      ? dispatch({ type: "shapes_list", payload: shapes.data.shapes })
+      : dispatch({ type: "add_error", payload: shapes.data.error });
+  } catch (err) {
+    dispatch({ type: "add_error", payload: err.message });
+  }
+};
+
 const getShapesCategories = (dispatch) => async () => {
   try {
     const shapesCategories = await SgedAPi.get("/shapes/categories");
@@ -271,6 +283,7 @@ export const { Provider, Context } = CreatedataContext(
     getShapeById,
     updateShape,
     clearShape,
+    getShapeByQuery,
   },
   {
     uploadProgress: 0,
