@@ -14,6 +14,7 @@ const ShapeForm = ({ isEditForm, idShape, buttonName }) => {
 
   const [showLoading, setShowLoading] = useState(false);
   const [updateShapeFile, setUpdateShapeFile] = useState(false);
+  const [shapeFormat, setShapeFormat] = useState("");
 
   useEffect(() => {
     getShapesCategories();
@@ -106,20 +107,21 @@ const ShapeForm = ({ isEditForm, idShape, buttonName }) => {
           <select
             id="shapeFormat"
             className="form-control"
+            onChange={(e) => setShapeFormat(e.target.value)}
             required
             value={
               isEditForm && state.shape
                 ? state.shape[0].formato_capa_informacion
-                : ""
+                : shapeFormat
             }
           >
             <option value="">
               Seleccione formato para capa de información
             </option>
-            <option value="shape">Shape</option>
-            <option value="shape">Raster</option>
-            <option value="shape">Dwg</option>
-            <option value="shape">Pdf</option>
+            <option value="Shape">Shape</option>
+            <option value="Raster">Raster</option>
+            <option value="Dwg">Dwg</option>
+            <option value="Pdf">Pdf</option>
           </select>
         </div>
         <div className="form-group">

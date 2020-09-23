@@ -6,14 +6,14 @@ const Footer = () => {
       <div className="container-fluid">
         <div className="footer-items-container row">
           <div>
-            <h5 className="footer-text">Sistema de gestión de desastres</h5>
+            <h5 className="footer-text">Sistema de información territorial</h5>
           </div>
           <div>
             <small>v1.0 año 2020</small>
           </div>
           <div>
             <h5 className="footer-text">
-              &copy; Observatorio de Investigación UBO
+              &copy; Observatorio en Gestión del Riesgo de Desastre
             </h5>
           </div>
         </div>
