@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="container-fluid">
         <div className="footer-items-container row">
           <div>
-            <h5 className="footer-text">Sistema de información territorial</h5>
+            <h5 className="footer-text">Sistema de Información Territorial</h5>
           </div>
           <div>
             <small>v1.0 año 2020</small>

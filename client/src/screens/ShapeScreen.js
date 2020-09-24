@@ -9,8 +9,9 @@ const ShapeScreen = ({ location: { state } }) => {
           shapeImage: "amenazas.png",
           shapeTitle: "amenazas",
           shapeCategorieId: 1,
-          shapeText: `Una amenaza se puede explicar como un peligro latente que representa una amplia variedad de fenómenos (sean de origen natural o antrópico); y que puede afectar a una comunidad.
-            Sección que contiene información sobre amenazas de origen natural o antrópico. 
+          shapeText: `Una amenaza se puede explicar como un peligro latente que representa una amplia variedad de fenómenos (sean de origen natural o antrópico); y que puede afectar a una comunidad.\n
+            Sección que contiene información sobre amenazas de origen natural o antrópico.\n 
+
             Las capas contenidas en esta sección, no representan en ningún caso mapas de riesgo.
             Se distinguen capas de información generadas en UBO, así como otras generadas por otros organismos. Para verificar su procedencia se debe revisar su metadata y descripción de información.`,
         };

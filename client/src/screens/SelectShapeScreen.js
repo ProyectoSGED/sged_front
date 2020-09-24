@@ -93,8 +93,6 @@ const SelectShapeScreen = () => {
     }
   }, [state.shapesList]);
 
-  console.log(state);
-
   return (
     <div className="container-md screen-container">
       {state.errorMessage ? (

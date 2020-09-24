@@ -203,7 +203,7 @@ const ShapeForm = ({ isEditForm, idShape, buttonName }) => {
               type="file"
               className="form-control-file"
               id="loadShapeFile"
-              accept=".zip"
+              accept=".zip,.rar"
               multiple={false}
             />
           </div>

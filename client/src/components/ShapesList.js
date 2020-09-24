@@ -36,6 +36,9 @@ const useStyle = makeStyles((theme) => ({
   expandIcon: {
     color: "#FFFFFF",
   },
+  shapeResume: {
+    textAlign: "justify",
+  },
 }));
 
 const ShapesList = ({ categorieId }) => {
@@ -81,7 +84,7 @@ const ShapesList = ({ categorieId }) => {
                 </Typography>
               </AccordionDetails>
               <AccordionDetails>
-                <Typography>
+                <Typography className={classes.shapeResume}>
                   Resumen capa de información: {shape.resumen_shape}
                 </Typography>
               </AccordionDetails>
