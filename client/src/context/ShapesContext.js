@@ -70,9 +70,6 @@ const getShapeByQuery = (dispatch) => async (query) => {
   try {
     const shapes = await SgedAPi.get(`/shapes/search/?query=${query}`, {
       crossdomain: true,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
     });
 
     shapes.data.status
