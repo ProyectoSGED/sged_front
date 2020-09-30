@@ -34,6 +34,8 @@ const App = () => {
     if (token) {
       jwt.verify(token, process.env.REACT_APP_JWT_SECRET, (err, decoded) => {
         if (err) {
+          console.log(err);
+
           localStorage.removeItem("session");
           setShowAlert(true);
         }
