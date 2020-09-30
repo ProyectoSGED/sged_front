@@ -1,14 +1,12 @@
 require("dotenv").config();
 const express = require("express");
 const path = require("path");
-const corsr = require("cors");
 
 const app = express();
 
-app.use(corsr());
 app.use(express.static(path.join(__dirname, "client/build")));
 
-app.get("*", corsr({ origin: "*" }), (req, res) => {
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client/build", "index.html"));
 });
 

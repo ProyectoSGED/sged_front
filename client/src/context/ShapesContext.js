@@ -31,7 +31,7 @@ const shapesReducer = (state, action) => {
         clearForm: true,
       };
     case "shapes_categories":
-      return { shapesCategories: action.payload, errorMessage: "" };
+      return { ...state, shapesCategories: action.payload, errorMessage: "" };
     case "shapes_list":
     case "shapes_list_all":
       return {
@@ -53,6 +53,8 @@ const shapesReducer = (state, action) => {
       return { shapesList: null };
     case "clear_message":
       return { ...state, errorMessage: "", message: "" };
+    case "shapes_categories_all":
+      return { ...state, shapesCategoriesAll: action.payload };
     default:
       return state;
   }
@@ -68,9 +70,7 @@ const clearMessage = (dispatch) => () => {
 
 const getShapeByQuery = (dispatch) => async (query) => {
   try {
-    const shapes = await SgedAPi.get(`/shapes/search/?query=${query}`, {
-      crossdomain: true,
-    });
+    const shapes = await SgedAPi.get(`/shapes/search/?query=${query}`);
 
     shapes.data.status
       ? dispatch({ type: "shapes_list", payload: shapes.data.shapes })
@@ -171,6 +171,21 @@ const createNewShape = (dispatch) => async ({
     newShape.data.status
       ? dispatch({ type: "new_shape", payload: newShape.data.message })
       : dispatch({ type: "add_error", payload: newShape.data.error });
+  } catch (err) {
+    dispatch({ type: "add_error", payload: err.message });
+  }
+};
+
+const getShapesCategoriesAll = (dispatch) => async () => {
+  try {
+    const shapesCategories = await SgedAPi.get("/shapes/categories/all");
+
+    shapesCategories.data.status
+      ? dispatch({
+          type: "shapes_categories_all",
+          payload: shapesCategories.data.shapes_categories,
+        })
+      : dispatch({ type: "add_error", payload: shapesCategories.data.error });
   } catch (err) {
     dispatch({ type: "add_error", payload: err.message });
   }
@@ -286,8 +301,10 @@ export const { Provider, Context } = CreatedataContext(
     updateShape,
     clearShape,
     getShapeByQuery,
+    getShapesCategoriesAll,
   },
   {
+    shapesCategoriesAll: null,
     uploadProgress: 0,
     shapesList: null,
     shape: null,

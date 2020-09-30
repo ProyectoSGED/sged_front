@@ -67,9 +67,12 @@ const useStyles = makeStyles((theme) => ({
 
 const SelectShapeScreen = () => {
   const classes = useStyles();
-  const { state, downloadShape, clearShape, getShapeByQuery } = useContext(
-    ShapesContext
-  );
+  const {
+    state,
+    downloadShape,
+    getShapeByQuery,
+    getShapesCategoriesAll,
+  } = useContext(ShapesContext);
 
   const [openModal, setOpenModal] = useState(false);
   const [query, setQuery] = useState("");
@@ -88,6 +91,8 @@ const SelectShapeScreen = () => {
   };
 
   useEffect(() => {
+    getShapesCategoriesAll();
+
     if (state.shapesList && query) {
       handleOpenModal(true);
     }
@@ -204,30 +209,19 @@ const SelectShapeScreen = () => {
       </div>
       <div className="container-md shapes-item-container">
         <div className="row row-cols-4">
-          <ShapeItem
-            altText={"amenazas"}
-            imageName={"amenazas.png"}
-            link={"/shapes/list"}
-            shapeName={"amenazas"}
-          />
-          <ShapeItem
-            altText={"infraestructura critica"}
-            imageName={"infraestructura_critica.png"}
-            link={"/shapes/list"}
-            shapeName={"infraestructura_critica"}
-          />
-          <ShapeItem
-            altText={"datos poblacion"}
-            imageName={"datos_poblacion.png"}
-            link={"/shapes/list"}
-            shapeName={"datos_poblacion"}
-          />
-          <ShapeItem
-            altText={"variables fisicas ambientales"}
-            imageName={"variables_fisicas_ambientales.png"}
-            link={"/shapes/list"}
-            shapeName={"variables_fisicas_ambientales"}
-          />
+          {state.shapesCategoriesAll
+            ? state.shapesCategoriesAll.map((shape, index) => (
+                <ShapeItem
+                  key={index}
+                  altText={shape.nombre_categoria}
+                  imageName={shape.foto_categoria}
+                  link={"/shapes/list"}
+                  shapeName={shape.nombre_categoria}
+                  shapeId={shape.id_categoria}
+                  shapeDescription={shape.descripcion_categoria}
+                />
+              ))
+            : null}
         </div>
       </div>
     </div>

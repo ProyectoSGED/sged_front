@@ -4,7 +4,7 @@ import { Context as SessionContext } from "../context/SessionContext";
 
 const Header = () => {
   const [selectedItem, setSelectedItem] = useState("");
-  const { state, signout } = useContext(SessionContext);
+  const { signout } = useContext(SessionContext);
 
   const currentPath = useLocation();
   const { user, profile } = localStorage.getItem("session")
@@ -109,7 +109,7 @@ const Header = () => {
               Bienvenido: {user}
             </Link>
             <ul className="dropdown-menu dropdown-menu-right">
-              {profile.toUpperCase() == "ADMINISTRADOR" ? (
+              {profile.toUpperCase() === "ADMINISTRADOR" ? (
                 <li id="users-admin">
                   <Link className="dropdown-item" to="#">
                     Administrar usuarios
@@ -129,8 +129,8 @@ const Header = () => {
                 </li>
               ) : null}
 
-              {profile.toUpperCase() == "ADMINISTRADOR" ||
-              profile.toUpperCase() == "EDITOR" ? (
+              {profile.toUpperCase() === "ADMINISTRADOR" ||
+              profile.toUpperCase() === "EDITOR" ? (
                 <li id="shapes-admin">
                   <Link className="dropdown-item" to="#">
                     Administrar capas de información
@@ -141,7 +141,7 @@ const Header = () => {
                         Listado capas de información
                       </Link>
                     </li>
-                    {profile.toUpperCase() == "ADMINISTRADOR" ? (
+                    {profile.toUpperCase() === "ADMINISTRADOR" ? (
                       <li>
                         <Link
                           className="dropdown-item"

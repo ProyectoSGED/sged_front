@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context as ShapesContext } from "../context/ShapesContext";
 
-const ShapeItem = ({ imageName, altText, link, shapeName }) => {
+const ShapeItem = ({
+  imageName,
+  altText,
+  link,
+  shapeName,
+  shapeId,
+  shapeDescription,
+}) => {
+  const { state, clearShape } = useContext(ShapesContext);
+
   return (
     <div className="item-container col-md">
-      <Link className="" to={{ pathname: link, state: { shapeName } }}>
+      <Link
+        onClick={clearShape}
+        className=""
+        to={{
+          pathname: link,
+          state: { shapeId, shapeName, shapeDescription, imageName },
+        }}
+      >
         <img
           src={`${process.env.PUBLIC_URL}/images/${imageName}`}
           alt={altText}
