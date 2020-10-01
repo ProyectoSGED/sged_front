@@ -34,7 +34,7 @@ const App = () => {
     if (token) {
       jwt.verify(token, process.env.REACT_APP_JWT_SECRET, (err, decoded) => {
         if (err) {
-          console.log(token, err);
+          console.log(token, err, `fecha cliente => ${new Date()}`);
 
           localStorage.removeItem("session");
           setShowAlert(true);
