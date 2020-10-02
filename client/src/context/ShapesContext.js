@@ -70,7 +70,7 @@ const clearMessage = (dispatch) => () => {
 
 const getShapeByQuery = (dispatch) => async (query) => {
   try {
-    const shapes = await SgedAPi.get(`/shapes/search/?query=${query}`);
+    const shapes = await SgedAPi.get(`/shapes/search?query=${query}`);
 
     shapes.data.status
       ? dispatch({ type: "shapes_list", payload: shapes.data.shapes })
