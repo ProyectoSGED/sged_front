@@ -21,6 +21,7 @@ const UsersResult = () => {
     { name: "Nombre usuario", selector: "nombre_usuario" },
     { name: "Primer nombre", selector: "primer_nombre" },
     { name: "Primer apellido", selector: "primer_apellido" },
+    { name: "Email", selector: "mail_usuario" },
     { name: "Perfil", selector: "nombre_perfil" },
     {
       name: "Activo",

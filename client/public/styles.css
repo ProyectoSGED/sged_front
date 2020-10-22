@@ -210,7 +210,8 @@
   text-align: center;
   margin: 10px 0;
 }
-.signin-form {
+.signin-form,
+.change-password-form {
   margin: 0 15% 15% 15%;
   text-align: center;
   display: flex;
@@ -228,6 +229,13 @@
   font-family: "Open Sans", sans-serif !important;
 }
 
+.cancel-btn {
+  margin-top: 10px;
+  width: 300px;
+  align-self: center;
+  background-color: #e20606 !important;
+  font-family: "Open Sans", sans-serif !important;
+}
 .admin-buttons {
   background-color: #0088cc !important;
   border-color: #0088cc !important;

@@ -23,6 +23,7 @@ const UserForm = ({ isEditForm, buttonName, userId }) => {
       firstName: event.target.primer_nombre.value,
       lastName: event.target.primer_apellido.value,
       profileId: event.target.id_perfil.value,
+      userEmail: event.target.userEmail.value,
       password: event.target.password ? event.target.password.value : null,
       userActive: event.target.checkUserActive
         ? event.target.checkUserActive.checked
@@ -44,11 +45,7 @@ const UserForm = ({ isEditForm, buttonName, userId }) => {
       getUserById(userId);
     }
     getProfileList();
-
-    return () => {
-      clearMessage();
-    };
-  }, []);
+  }, [state.message, state.errorMessage]);
 
   return (
     <div className="container-md">
@@ -74,6 +71,7 @@ const UserForm = ({ isEditForm, buttonName, userId }) => {
             defaultValue={
               isEditForm && state.user ? state.user[0].nombre_usuario : ""
             }
+            onFocus={() => clearMessage()}
           />
         </div>
         <div className="form-group">
@@ -87,6 +85,7 @@ const UserForm = ({ isEditForm, buttonName, userId }) => {
               isEditForm && state.user ? state.user[0].primer_nombre : ""
             }
             placeholder={"Primer nombre"}
+            onFocus={() => clearMessage()}
           />
         </div>
         <div className="form-group">
@@ -100,11 +99,31 @@ const UserForm = ({ isEditForm, buttonName, userId }) => {
             id="primer_apellido"
             required
             placeholder={"Primer apellido"}
+            onFocus={() => clearMessage()}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="userEmail">Email</label>
+          <input
+            defaultValue={
+              isEditForm && state.user ? state.user[0].mail_usuario : ""
+            }
+            type="email"
+            className="form-control"
+            id="userEmail"
+            required
+            placeholder={"mail@mail.com"}
+            onFocus={() => clearMessage()}
           />
         </div>
         <div className="form-group">
           <label htmlFor="id_perfil">Perfil</label>
-          <select className="form-control" id="id_perfil" required>
+          <select
+            className="form-control"
+            id="id_perfil"
+            required
+            onFocus={() => clearMessage()}
+          >
             <option value="">Seleccione un perfil</option>
             {state.profiles
               ? state.profiles.map((profile, index) => (
@@ -135,6 +154,7 @@ const UserForm = ({ isEditForm, buttonName, userId }) => {
               required
               minLength="8"
               placeholder={"Contraseña"}
+              onFocus={() => clearMessage()}
             />
           </div>
         ) : (
@@ -144,6 +164,7 @@ const UserForm = ({ isEditForm, buttonName, userId }) => {
               type="checkbox"
               className="form-check-input"
               id="checkUserActive"
+              onFocus={() => clearMessage()}
             />
             <label className="form-check-label" htmlFor="checkUserActive">
               Activar/Desactivar usuario

@@ -41,15 +41,11 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-const ShapesList = ({ categorieId }) => {
+const ShapesList = ({ shapeList }) => {
   const classes = useStyle();
-  const { state, shapesListByCategory, downloadShape, clearShape } = useContext(
-    ShapesContext
-  );
+  const { state, downloadShape, clearShape } = useContext(ShapesContext);
 
   useEffect(() => {
-    shapesListByCategory(categorieId);
-
     return () => {
       clearShape();
     };
@@ -57,8 +53,8 @@ const ShapesList = ({ categorieId }) => {
 
   return (
     <div>
-      {state.shapesList ? (
-        state.shapesList.map((shape, index) => (
+      {shapeList ? (
+        shapeList.map((shape, index) => (
           <div className={classes.root} key={index}>
             <Accordion>
               <AccordionSummary
@@ -85,7 +81,7 @@ const ShapesList = ({ categorieId }) => {
               </AccordionDetails>
               <AccordionDetails>
                 <Typography className={classes.shapeResume}>
-                  Resumen capa de información: {shape.resumen_shape}
+                  {shape.resumen_shape}
                 </Typography>
               </AccordionDetails>
               <Divider />

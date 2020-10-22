@@ -60,6 +60,7 @@ const createNewUser = (dispatch) => async ({
   lastName,
   profileId,
   password,
+  userEmail,
 }) => {
   try {
     const newUser = await SgedAPi.post("/users/new", {
@@ -68,6 +69,7 @@ const createNewUser = (dispatch) => async ({
       primer_apellido: lastName,
       password: password,
       id_perfil: profileId,
+      mail_usuario: userEmail,
     });
 
     newUser.data.status
@@ -112,6 +114,7 @@ const editUser = (dispatch) => async ({
   lastName,
   userActive,
   profileId,
+  userEmail,
 }) => {
   try {
     const response = await SgedAPi.put(
@@ -121,7 +124,8 @@ const editUser = (dispatch) => async ({
         &primer_nombre=${firstName}
         &primer_apellido=${lastName}
         &usuario_activo=${userActive}
-        &id_perfil=${profileId}`
+        &id_perfil=${profileId}
+        &mail_usuario=${userEmail}`
     );
 
     response.data.status

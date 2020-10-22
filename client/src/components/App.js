@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Route, Redirect, useLocation } from "react-router-dom";
 import jwt from "jsonwebtoken";
 import Header from "./Header";
@@ -17,11 +17,14 @@ import ShapeUpdateScreen from "../screens/ShapeUpdateScreen";
 import MapScreen from "../screens/MapScreen";
 import ShapeListScreen from "../screens/ShapeListScreen";
 import MapPolicyScreen from "../screens/MapPolicyScreen";
+import ChangePasswordScreen from "../screens/ChangePasswordScreen";
 
 import { Context as SessionContext } from "../context/SessionContext";
 import AlertDialog from "./AlertDialog";
 
 const App = () => {
+  const { state, verifyChangeUserPassword } = useContext(SessionContext);
+
   const [showAlert, setShowAlert] = useState(false);
 
   const currentPath = useLocation();
@@ -45,7 +48,17 @@ const App = () => {
 
   useEffect(() => {
     checkSessionToken();
-  }, [currentPath]);
+
+    verifyChangeUserPassword();
+  }, [currentPath.pathname]);
+
+  function handleRedirect(component) {
+    if (state.changeUserPassword) {
+      return <Redirect to="/change-password" />;
+    }
+
+    return component;
+  }
 
   return (
     <div className="app-container">
@@ -64,17 +77,7 @@ const App = () => {
           <Route path="/shapes" exact component={SelectShapeScreen} />
           <Route path="/shapes/list" exact component={ShapeScreen} />
           <Route path="/map/policy" exact component={MapPolicyScreen} />
-          <Route
-            path="/signin"
-            exact
-            render={() =>
-              localStorage.getItem("session") ? (
-                <Redirect to="/" />
-              ) : (
-                <SigninScreen />
-              )
-            }
-          />
+          <Route path="/signin" exact component={SigninScreen} />
 
           {profile === "ADMINISTRADOR" || profile === "EDITOR" ? (
             <div>
@@ -83,36 +86,41 @@ const App = () => {
                   <Route
                     path="/admin/users/list"
                     exact
-                    component={UsersListsScreen}
+                    render={() => handleRedirect(<UsersListsScreen />)}
                   />
                   <Route
                     path="/admin/users/create"
                     exact
-                    component={UserCreateScreen}
+                    render={() => handleRedirect(<UserCreateScreen />)}
                   />
                   <Route
                     path="/admin/users/update"
                     exact
                     component={UserEditScreen}
+                    render={() => handleRedirect(<UserEditScreen />)}
                   />
                   <Route
                     path="/admin/shapes/create"
                     exact
-                    component={ShapeCreateScreen}
+                    render={() => handleRedirect(<ShapeCreateScreen />)}
                   />
                 </div>
-              ) : (
-                <Redirect to="/" />
-              )}
+              ) : null}
+              <Route
+                path="/change-password"
+                exact
+                component={ChangePasswordScreen}
+              />
+
               <Route
                 path="/admin/shapes/list"
                 exact
-                component={ShapeListScreen}
+                render={() => handleRedirect(<ShapeListScreen />)}
               />
               <Route
                 path="/admin/shape/update"
                 exact
-                component={ShapeUpdateScreen}
+                render={() => handleRedirect(<ShapeUpdateScreen />)}
               />
             </div>
           ) : (
