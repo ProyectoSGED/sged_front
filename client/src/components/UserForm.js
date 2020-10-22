@@ -42,7 +42,11 @@ const UserForm = ({ isEditForm, buttonName, userId }) => {
 
   useEffect(() => {
     if (isEditForm) {
-      getUserById(userId);
+      if (userId) {
+        localStorage.setItem("userId", userId);
+      }
+
+      getUserById(localStorage.getItem("userId"));
     }
     getProfileList();
   }, [state.message, state.errorMessage]);

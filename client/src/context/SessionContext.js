@@ -87,21 +87,25 @@ const resetPassword = (dispatch) => async (userEmail) => {
 
 const verifyChangeUserPassword = (dispatch) => async () => {
   try {
-    const { access_type, token } = JSON.parse(localStorage.getItem("session"));
+    if (localStorage.getItem("session")) {
+      const { access_type, token } = JSON.parse(
+        localStorage.getItem("session")
+      );
 
-    const response = await SgedAPi.get("/users/verify-change-password", {
-      headers: { Authorization: `${access_type} ${token}` },
-    });
+      const response = await SgedAPi.get("/users/verify-change-password", {
+        headers: { Authorization: `${access_type} ${token}` },
+      });
 
-    response.data.status
-      ? dispatch({
-          type: "verify_change_password",
-          payload: response.data.change_password,
-        })
-      : dispatch({
-          type: "add_error",
-          payload: response.data.error,
-        });
+      response.data.status
+        ? dispatch({
+            type: "verify_change_password",
+            payload: response.data.change_password,
+          })
+        : dispatch({
+            type: "add_error",
+            payload: response.data.error,
+          });
+    }
   } catch (err) {
     dispatch({
       type: "add_error",

@@ -50,7 +50,7 @@ const SigninScreen = () => {
   } else {
     return (
       <div className="container-md screen-container">
-        {state.session && (state.errorMessage || state.message) ? (
+        {state.errorMessage || state.message ? (
           <SubmitMessage
             errorMessage={state.errorMessage}
             successMessage={state.message}
