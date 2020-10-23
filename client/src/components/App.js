@@ -120,6 +120,7 @@ const App = () => {
               <Route
                 path="/admin/shape/update"
                 exact
+                component={ShapeUpdateScreen}
                 render={() => handleRedirect(<ShapeUpdateScreen />)}
               />
             </div>
