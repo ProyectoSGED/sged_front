@@ -47,6 +47,8 @@ const App = () => {
   }
 
   useEffect(() => {
+    window.scroll(0, 0);
+
     checkSessionToken();
 
     verifyChangeUserPassword();
@@ -68,6 +70,7 @@ const App = () => {
             <AlertDialog
               message="Debe volver a iniciar sesión"
               title="Sesión expirada"
+              showCancelButton={false}
             />
           ) : null}
           <Header />

@@ -50,7 +50,10 @@ const getProfileList = (dispatch) => async () => {
       ? dispatch({ type: "profile_list", payload: profileList.data.profiles })
       : dispatch({ type: "add_error", payload: profileList.data.error });
   } catch (err) {
-    dispatch({ type: "add_error", payload: err.message });
+    dispatch({
+      type: "add_error",
+      payload: "Ocurrió un error, intente nuevamente...",
+    });
   }
 };
 
@@ -79,7 +82,10 @@ const createNewUser = (dispatch) => async ({
           payload: newUser.data.error,
         });
   } catch (err) {
-    dispatch({ type: "add_error", payload: err.message });
+    dispatch({
+      type: "add_error",
+      payload: "Ocurrió un error, intente nuevamente...",
+    });
   }
 };
 
@@ -91,7 +97,10 @@ const getUsersList = (dispatch) => async () => {
       ? dispatch({ type: "get_users_list", payload: usersList.data.users })
       : dispatch({ type: "add_error", payload: usersList.data.error });
   } catch (err) {
-    dispatch({ type: "add_error", payload: err.message });
+    dispatch({
+      type: "add_error",
+      payload: "Ocurrió un error, intente nuevamente...",
+    });
   }
 };
 
@@ -103,7 +112,10 @@ const getUserById = (dispatch) => async (userId) => {
       ? dispatch({ type: "get_user", payload: user.data.user })
       : dispatch({ type: "add_error", payload: user.data.error });
   } catch (err) {
-    dispatch({ type: "add_error", payload: err.message });
+    dispatch({
+      type: "add_error",
+      payload: "Ocurrió un error, intente nuevamente...",
+    });
   }
 };
 
@@ -132,7 +144,10 @@ const editUser = (dispatch) => async ({
       ? dispatch({ type: "update_user", payload: response.data.message })
       : dispatch({ type: "add_error", payload: response.data.error });
   } catch (err) {
-    dispatch({ type: "add_error", payload: err.message });
+    dispatch({
+      type: "add_error",
+      payload: "Ocurrió un error, intente nuevamente...",
+    });
   }
 };
 
@@ -146,7 +161,10 @@ const deactivateUser = (dispatch) => async (userId) => {
       ? dispatch({ type: "deactivate_user", payload: response.data.message })
       : dispatch({ type: "add_error", payload: response.data.error });
   } catch (err) {
-    dispatch({ type: "add_error", payload: err.message });
+    dispatch({
+      type: "add_error",
+      payload: "Ocurrió un error, intente nuevamente...",
+    });
   }
 };
 

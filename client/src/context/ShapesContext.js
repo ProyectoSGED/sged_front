@@ -32,6 +32,13 @@ const shapesReducer = (state, action) => {
       };
     case "shapes_categories":
       return { ...state, shapesCategories: action.payload, errorMessage: "" };
+    case "shapes_list_by_query":
+      return {
+        ...state,
+        shapesListByQuery: action.payload,
+        errorMessage: "",
+        showMessage: true,
+      };
     case "shapes_list":
     case "shapes_list_all":
       return {
@@ -70,13 +77,18 @@ const clearMessage = (dispatch) => () => {
 
 const getShapeByQuery = (dispatch) => async (query) => {
   try {
+    dispatch({ type: "clear_message" });
+
     const shapes = await SgedAPi.get(`/shapes/search?query=${query}`);
 
     shapes.data.status
-      ? dispatch({ type: "shapes_list", payload: shapes.data.shapes })
+      ? dispatch({ type: "shapes_list_by_query", payload: shapes.data.shapes })
       : dispatch({ type: "add_error", payload: shapes.data.error });
   } catch (err) {
-    dispatch({ type: "add_error", payload: err.message });
+    dispatch({
+      type: "add_error",
+      payload: "Ocurrió un error, intente nuevamente...",
+    });
   }
 };
 
@@ -91,7 +103,10 @@ const getShapesCategories = (dispatch) => async () => {
         })
       : dispatch({ type: "add_error", payload: shapesCategories.data.error });
   } catch (err) {
-    dispatch({ type: "add_error", payload: err.message });
+    dispatch({
+      type: "add_error",
+      payload: "Ocurrió un error, intente nuevamente...",
+    });
   }
 };
 
@@ -105,7 +120,10 @@ const shapesListByCategory = (dispatch) => async (idCategoria) => {
       ? dispatch({ type: "shapes_list", payload: shapes.data.shapes })
       : dispatch({ type: "add_error", payload: shapes.data.error });
   } catch (err) {
-    dispatch({ type: "add_error", payload: err.message });
+    dispatch({
+      type: "add_error",
+      payload: "Ocurrió un error, intente nuevamente...",
+    });
   }
 };
 
@@ -119,7 +137,10 @@ const deleteShape = (dispatch) => async (idShape) => {
       ? dispatch({ type: "delete_shape", payload: response.data.message })
       : dispatch({ type: "add_error", payload: response.data.error });
   } catch (err) {
-    dispatch({ type: "add_error", payload: err.message });
+    dispatch({
+      type: "add_error",
+      payload: "Ocurrió un error, intente nuevamente...",
+    });
   }
 };
 
@@ -131,7 +152,10 @@ const getAllShapes = (dispatch) => async () => {
       ? dispatch({ type: "shapes_list_all", payload: shapes.data.shapes })
       : dispatch({ type: "add_error", payload: shapes.data.error });
   } catch (err) {
-    dispatch({ type: "add_error", payload: err.message });
+    dispatch({
+      type: "add_error",
+      payload: "Ocurrió un error, intente nuevamente...",
+    });
   }
 };
 
@@ -172,7 +196,10 @@ const createNewShape = (dispatch) => async ({
       ? dispatch({ type: "new_shape", payload: newShape.data.message })
       : dispatch({ type: "add_error", payload: newShape.data.error });
   } catch (err) {
-    dispatch({ type: "add_error", payload: err.message });
+    dispatch({
+      type: "add_error",
+      payload: "Ocurrió un error, intente nuevamente...",
+    });
   }
 };
 
@@ -187,7 +214,10 @@ const getShapesCategoriesAll = (dispatch) => async () => {
         })
       : dispatch({ type: "add_error", payload: shapesCategories.data.error });
   } catch (err) {
-    dispatch({ type: "add_error", payload: err.message });
+    dispatch({
+      type: "add_error",
+      payload: "Ocurrió un error, intente nuevamente...",
+    });
   }
 };
 
@@ -247,7 +277,10 @@ const updateShape = (dispatch) => async ({
       ? dispatch({ type: "update_shape", payload: updateShape.data.message })
       : dispatch({ type: "add_error", payload: updateShape.data.error });
   } catch (err) {
-    dispatch({ type: "add_error", payload: err.message });
+    dispatch({
+      type: "add_error",
+      payload: "Ocurrió un error, intente nuevamente...",
+    });
   }
 };
 
@@ -259,7 +292,10 @@ const getShapeById = (dispatch) => async (idShape) => {
       ? dispatch({ type: "get_shape", payload: shape.data.shape })
       : dispatch({ type: "add_error", payload: shape.data.error });
   } catch (err) {
-    dispatch({ type: "add_error", payload: err.message });
+    dispatch({
+      type: "add_error",
+      payload: "Ocurrió un error, intente nuevamente...",
+    });
   }
 };
 
@@ -283,7 +319,10 @@ const downloadShape = (dispatch) => async (idShape, shapeName) => {
       link.remove();
     });
   } catch (err) {
-    dispatch({ type: "add_error", payload: err.message });
+    dispatch({
+      type: "add_error",
+      payload: "Ocurrió un error, intente nuevamente...",
+    });
   }
 };
 
@@ -314,5 +353,6 @@ export const { Provider, Context } = CreatedataContext(
     hideLoading: false,
     showMessage: false,
     clearForm: false,
+    shapesListByQuery: null,
   }
 );

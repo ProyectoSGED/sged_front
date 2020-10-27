@@ -5,7 +5,7 @@ const CarouselItem = ({ isFirstElement, imageName }) => {
     <div className={isFirstElement ? "carousel-item active" : "carousel-item"}>
       <img
         alt="item"
-        height="400"
+        height="350"
         className="d-block w-100 carousel-image"
         src={`${process.env.PUBLIC_URL}/images/carousel/${imageName}`}
       />

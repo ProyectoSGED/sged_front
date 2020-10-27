@@ -12,6 +12,7 @@ import AccordionActions from "@material-ui/core/AccordionActions";
 import { PaginatedList } from "react-paginated-list";
 
 import { Context as ShapesContext } from "../context/ShapesContext";
+import Loading from "../components/Loading";
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -47,9 +48,13 @@ const useStyle = makeStyles((theme) => ({
 const ShapeScreen = ({ location }) => {
   let shapeText;
 
-  const { state, shapesListByCategory, downloadShape, clearShape } = useContext(
-    ShapesContext
-  );
+  const {
+    state,
+    shapesListByCategory,
+    downloadShape,
+    clearShape,
+    clearMessage,
+  } = useContext(ShapesContext);
   const classes = useStyle();
 
   useEffect(() => {
@@ -58,6 +63,10 @@ const ShapeScreen = ({ location }) => {
 
       shapeText.innerHTML = location.state.shapeDescription;
     }
+
+    return () => {
+      clearMessage();
+    };
   }, []);
 
   if (!location.state) {
@@ -157,6 +166,8 @@ const ShapeScreen = ({ location }) => {
                       )}
                     />
                   </div>
+                ) : !state.hideLoading ? (
+                  <Loading />
                 ) : null}
               </div>
             </div>

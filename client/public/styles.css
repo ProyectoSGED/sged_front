@@ -27,13 +27,20 @@
   align-items: end;
   padding: 0 !important;
 }
+.nav-item {
+  border-right: 1px solid #808080;
+}
+
+.navigationElementsContainer li:last-child {
+  border-right: none;
+}
+
 .home,
 .contact,
 .download,
 .signin {
   color: #0088cc !important;
   padding: 5px;
-  margin-right: 1px;
   padding: 0.5rem 1rem !important;
   font-family: "Open Sans", sans-serif !important;
   font-size: 12px;
@@ -70,11 +77,11 @@
   background-color: #0088cc !important;
 }
 .screen-container {
-  margin-top: 10%;
+  margin-top: 20vh;
   position: relative;
 }
 .carousel-container {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   z-index: 0;
   position: relative;
 }
@@ -123,14 +130,15 @@
 }
 .descriptionTitle,
 .mapTitle {
-  font-size: 22px;
+  margin-top: 10px;
+  font-size: 1.3em;
   padding: 15px 0px 15px 0px;
 }
 .descriptionText {
   text-align: justify;
   font-family: Arial, Helvetica, sans-serif;
   color: #5a5a5a;
-  font-size: 18px;
+  font-size: 1.2em;
 }
 .mapImage {
   height: 100%;
@@ -158,6 +166,8 @@
 }
 .footer-text {
   font-size: 15px;
+  margin-left: 10px;
+  align-self: end;
 }
 .search-form-container {
   align-content: stretch;

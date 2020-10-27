@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Context as SessionContext } from "../context/SessionContext";
 
+import SearchBar from "./SearchBar";
+
 const Header = () => {
   const [selectedItem, setSelectedItem] = useState("");
   const { signout } = useContext(SessionContext);
@@ -43,6 +45,7 @@ const Header = () => {
           loading="lazy"
         />
       </Link>
+      <SearchBar />
       <ul className="navigationElementsContainer nav justify-content-end">
         <li className="nav-link nav-item">
           <Link

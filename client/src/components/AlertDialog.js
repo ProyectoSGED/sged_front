@@ -11,7 +11,13 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const AlertDialog = ({ openDialog, title, message, onAccept }) => {
+const AlertDialog = ({
+  openDialog,
+  title,
+  message,
+  onAccept,
+  showCancelButton = true,
+}) => {
   const [open, setOpen] = React.useState(true);
 
   function acceptedByUser() {
@@ -42,15 +48,18 @@ const AlertDialog = ({ openDialog, title, message, onAccept }) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={() => {
-              setOpen(!open);
-              openDialog(false);
-            }}
-            color="secondary"
-          >
-            Cancelar
-          </Button>
+          {showCancelButton ? (
+            <Button
+              onClick={() => {
+                setOpen(!open);
+                openDialog(false);
+              }}
+              color="secondary"
+            >
+              Cancelar
+            </Button>
+          ) : null}
+
           <Button onClick={acceptedByUser} color="primary">
             Aceptar
           </Button>
